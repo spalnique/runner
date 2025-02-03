@@ -1,1 +1,2 @@
-# runner
+npm install
+npm run dev
