@@ -1,5 +1,14 @@
-function App() {
-  return <p className="text-amber-200">hello world</p>;
-}
+import { Container, Footer, Header } from "@components";
+import { Router } from "@router";
+
+const App = () => {
+  return (
+    <Container>
+      <Header />
+      <Router />
+      <Footer />
+    </Container>
+  );
+};
 
 export default App;

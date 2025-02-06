@@ -1,0 +1,1 @@
+export { useAllCompetitions } from "./useAllCompetitions";
