@@ -17,11 +17,11 @@ const Homepage = () => {
 
   const { competitions, meta } = useAllCompetitions(params);
 
-  const updateParamsText = useRef(
+  const { current: updateParamsText } = useRef(
     debounce((input: string) => {
       setParams((prev) => ({ ...prev, text: input }));
     }, 500)
-  ).current;
+  );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     updateParamsText(target.value);
