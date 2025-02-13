@@ -1,0 +1,22 @@
+import { HTMLAttributes } from "react";
+
+import { CompetitionListItem } from "@components";
+import { Competition } from "@types";
+
+type CompetitionListProps = HTMLAttributes<HTMLUListElement> & {
+  competitions: Competition[];
+};
+
+const CompetitionList = ({ competitions, ...props }: CompetitionListProps) => {
+  return (
+    <ul
+      className="flex h-[calc(100vh-64px-64px-146px)] grow flex-col gap-1 overflow-y-auto"
+      {...props}
+    >
+      {competitions.map((competition) => (
+        <CompetitionListItem key={competition.id} competition={competition} />
+      ))}
+    </ul>
+  );
+};
+export default CompetitionList;

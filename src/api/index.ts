@@ -1,1 +1,2 @@
-export { getAllCompetitions } from "./getAllCompetitions";
+export { getCompetitions } from "./getAllCompetitions";
+export { getCompetitionById } from "./getCompetitionById";

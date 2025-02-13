@@ -41,6 +41,18 @@ export type GetAllResponse = {
   empty: boolean;
 };
 
+export type GetByIdResponse = {
+  id: number;
+  days: number[];
+  name: string;
+  status: CompetitionStatus;
+  beginDate: string;
+  endDate: string;
+  country: string;
+  city: string;
+  url: string;
+};
+
 export type GetAllMeta = Omit<GetAllResponse, "content" | "pageable">;
 export type GetAllParams = {
   page: number;

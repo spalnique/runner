@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
-import { getAllCompetitions } from "@api";
+import { getCompetitions } from "@api";
 import { Competition, GetAllMeta } from "@types";
 
 type Response = {
   competitions: Competition[];
   meta: GetAllMeta | null;
-  params: Record<string, string> | null;
+  params: Record<string, string | null> | null;
   error: boolean;
   loading: boolean;
 };
 
-export const useAllCompetitions = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+export const useCompetitions = () => {
+  const [searchParams] = useSearchParams();
 
   const [response, setResponse] = useState<Response>({
     competitions: [],
@@ -26,9 +26,9 @@ export const useAllCompetitions = () => {
   useEffect(() => {
     (async () => {
       const params = {
-        page: searchParams.get("page") ?? "0",
-        text: searchParams.get("text") ?? "",
-        status: searchParams.get("status") ?? "",
+        page: searchParams.get("page") ?? null,
+        text: searchParams.get("text") ?? null,
+        status: searchParams.get("status") ?? null,
       };
 
       try {
@@ -39,7 +39,7 @@ export const useAllCompetitions = () => {
           params,
         }));
 
-        const { content, ...responseMeta } = await getAllCompetitions(params);
+        const { content, ...responseMeta } = await getCompetitions(params);
 
         setResponse((prev) => ({
           ...prev,
@@ -55,5 +55,5 @@ export const useAllCompetitions = () => {
     })();
   }, [searchParams]);
 
-  return { ...response, setSearchParams };
+  return response;
 };

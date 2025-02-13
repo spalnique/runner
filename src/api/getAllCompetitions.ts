@@ -2,9 +2,11 @@ import { GetAllResponse } from "@types";
 
 import axiosInstance from "./axios.ts";
 
-type getAllFn = (params: Record<string, string>) => Promise<GetAllResponse>;
+type GetCompetitions = (
+  params: Record<string, string | null> | null
+) => Promise<GetAllResponse>;
 
-export const getAllCompetitions: getAllFn = async (params) => {
+export const getCompetitions: GetCompetitions = async (params) => {
   const { data } = await axiosInstance.get("/competitions", {
     params,
   });

@@ -4,3 +4,6 @@ export { default as Container } from "./Container/Container.tsx";
 export { default as Demo } from "./Demo/Demo.tsx";
 export { default as CompetitionSearchInput } from "./CompetitionSearchInput/CompetitionSearchInput.tsx";
 export { default as PageButton } from "./PageButton/PageButton.tsx";
+export { default as CompetitionList } from "./CompetitionsList/CompetitionList.tsx";
+export { default as CompetitionListItem } from "./CompetitionListItem/CompetitionListItem.tsx";
+export { default as CompetitionDetails } from "./CompetitionDetails/CompetitionDetails.tsx";
