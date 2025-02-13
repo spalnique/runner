@@ -14,7 +14,7 @@ const CompetitionList = ({ competitions, ...props }: CompetitionListProps) => {
 
   return (
     <ul
-      className={`flex h-[calc(100vh-64px-64px-146px)] ${id ? "w-80" : "w-full"} grow flex-col gap-1 overflow-y-auto`}
+      className={`flex h-[calc(100vh-64px-64px-146px)] ${id ? "w-80" : "w-full"} grow flex-col gap-1 overflow-y-scroll px-2 py-2`}
       {...props}
     >
       {competitions.map((competition) => (

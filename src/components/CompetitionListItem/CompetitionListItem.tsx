@@ -6,16 +6,22 @@ type CompetitionListItemProps = { competition: Competition };
 
 const CompetitionListItem = ({ competition }: CompetitionListItemProps) => {
   const [searchParams] = useSearchParams();
+  const competitionId = competition.id.toString();
+
+  const isActive = searchParams.get("id") === competitionId;
 
   const query = new URLSearchParams(searchParams);
+  query.set("id", competitionId);
 
-  query.set("id", `${competition.id}`);
+  const to = `?${query.toString()}`;
 
   return (
     <li key={competition.id}>
-      <NavLink to={`?${query.toString()}`}>
+      <NavLink
+        to={to}
+        className={`${isActive ? "shadow-[0_0_3px_1px_rgba(0,0,0,0.1)]" : "shadow-none"} block px-3 py-2 transition-all hover:shadow-[0_0_5px_2px_rgba(0,0,0,0.1)]`}
+      >
         <p>{competition.name}</p>
-        <p>{competition.status}</p>
       </NavLink>
     </li>
   );

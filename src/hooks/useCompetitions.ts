@@ -25,6 +25,7 @@ export const useCompetitions = (searchParams: URLSearchParams) => {
       const params = {
         page: searchParams.get("page") ?? null,
         text: searchParams.get("text") ?? null,
+        // status: searchParams.get("status") ?? "Проводиться",
         status: searchParams.get("status") ?? null,
       };
 
