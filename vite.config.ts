@@ -7,9 +7,10 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://bots.dns-cloud.net:8181",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, "/api/v1/competitions"),
+        target: "http://bots.dns-cloud.net:8181", // Ти вказуєш HTTP сервер
+        changeOrigin: true, // Зміна походження
+        secure: false, // Виключаємо перевірку сертифікатів для HTTP
+        rewrite: (path) => path.replace(/^\/api/, "/api/v1"), // Переписуємо шляхи
       },
     },
   },
