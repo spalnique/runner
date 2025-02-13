@@ -1,49 +1,35 @@
-import { ChangeEventHandler, MouseEventHandler, useRef, useState } from "react";
+import { ChangeEventHandler, MouseEventHandler } from "react";
 
-import { debounce } from "@helpers";
-import { useAllCompetitions } from "@hooks";
-import { GetAllParams } from "@types";
-
-const initialParams: GetAllParams = {
-  page: 0,
-  status: null,
-  text: "",
-};
-
-// type CurrentPageHandler = (value: number) => void;
+import { CompetitionSearchInput, PageButton } from "@components";
+import { useAllCompetitions, useDebounceCall } from "@hooks";
 
 const Homepage = () => {
-  const [params, setParams] = useState(initialParams);
+  console.log("Rendering Homepage...");
 
-  const { competitions, meta } = useAllCompetitions(params);
+  const { competitions, meta, params, setSearchParams } = useAllCompetitions();
 
-  const { current: updateParamsText } = useRef(
-    debounce((input: string) => {
-      setParams((prev) => ({ ...prev, text: input }));
-    }, 500)
-  );
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    updateParamsText(target.value);
-  };
-
-  const handleCurrentPage: MouseEventHandler<HTMLButtonElement> = ({
-    currentTarget,
-  }) => {
-    const value = Number(currentTarget.value);
-    setParams((prev) => ({
-      ...prev,
-      page: prev.page + value,
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev.entries()),
+      page: "0",
+      text: event.target.value,
     }));
   };
 
+  const handleCurrentPage: MouseEventHandler<HTMLButtonElement> = (event) => {
+    setSearchParams((prev) => ({
+      ...Object.fromEntries(prev.entries()),
+      page: `${parseInt(prev.get("page") ?? "0") + Number(event.currentTarget.value)}`,
+    }));
+  };
+
+  const debouncedHandleChange = useDebounceCall(handleChange);
+
   return (
     <main className="flex grow flex-col gap-5 px-8 py-5">
-      <input
-        className="rounded border-1 border-cyan-900 px-4"
-        defaultValue={params.text}
-        onChange={handleChange}
-        placeholder="Search by competition name"
+      <CompetitionSearchInput
+        defaultValue={params?.text ?? ""}
+        onChange={debouncedHandleChange}
         autoFocus
       />
 
@@ -65,22 +51,14 @@ const Homepage = () => {
           {meta && (
             <div className="flex gap-8 self-center">
               {!meta.first && (
-                <button
-                  className="w-32 rounded bg-cyan-700 p-2 text-white"
-                  onClick={handleCurrentPage}
-                  value={-1}
-                >
+                <PageButton value={-1} onClick={handleCurrentPage}>
                   Prev page
-                </button>
+                </PageButton>
               )}
               {!meta.last && (
-                <button
-                  className="w-32 rounded bg-cyan-700 p-2 text-white"
-                  onClick={handleCurrentPage}
-                  value={1}
-                >
+                <PageButton value={1} onClick={handleCurrentPage}>
                   Next page
-                </button>
+                </PageButton>
               )}
             </div>
           )}

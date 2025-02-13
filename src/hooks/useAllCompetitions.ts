@@ -1,32 +1,59 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 import { getAllCompetitions } from "@api";
-import { Competition, GetAllMeta, GetAllParams } from "@types";
+import { Competition, GetAllMeta } from "@types";
 
-export const useAllCompetitions = (params: GetAllParams) => {
-  const [meta, setMeta] = useState<GetAllMeta | null>(null);
-  const [competitions, setCompetitions] = useState<Competition[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+type Response = {
+  competitions: Competition[];
+  meta: GetAllMeta | null;
+  params: Record<string, string> | null;
+  error: boolean;
+  loading: boolean;
+};
+
+export const useAllCompetitions = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [response, setResponse] = useState<Response>({
+    competitions: [],
+    meta: null,
+    params: null,
+    error: false,
+    loading: false,
+  });
+
   useEffect(() => {
     (async () => {
+      const params = {
+        page: searchParams.get("page") ?? "0",
+        text: searchParams.get("text") ?? "",
+        status: searchParams.get("status") ?? "",
+      };
+
       try {
-        setError(false);
-        setMeta(null);
-        setLoading(true);
+        setResponse((prev) => ({
+          ...prev,
+          error: false,
+          loading: true,
+          params,
+        }));
 
         const { content, ...responseMeta } = await getAllCompetitions(params);
 
-        setCompetitions(content);
-        setMeta(responseMeta);
+        setResponse((prev) => ({
+          ...prev,
+          competitions: content,
+          meta: responseMeta,
+        }));
       } catch (error) {
-        setError(true);
+        setResponse((prev) => ({ ...prev, error: true }));
         console.error(error);
       } finally {
-        setLoading(false);
+        setResponse((prev) => ({ ...prev, loading: false }));
       }
     })();
-  }, [params]);
+  }, [searchParams]);
 
-  return { meta, competitions, loading, error };
+  return { ...response, setSearchParams };
 };
