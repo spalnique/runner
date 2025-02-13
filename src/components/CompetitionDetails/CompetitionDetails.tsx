@@ -2,10 +2,11 @@ import { MouseEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
 import { Button } from "@components";
-import { Competition } from "@types";
+import { useCompetitionById } from "@hooks";
 
-const CompetitionDetails = (competition: Competition) => {
+const CompetitionDetails = () => {
   const [_, setSearchParams] = useSearchParams();
+  const { competition } = useCompetitionById();
 
   const handleClose: MouseEventHandler<HTMLButtonElement> = () => {
     setSearchParams((prev) => {

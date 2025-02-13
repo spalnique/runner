@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useMemo } from "react";
+import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
 import {
@@ -16,11 +16,6 @@ const Homepage = () => {
 
   const id = searchParams.get("id");
   const text = searchParams.get("text");
-
-  const previewCompetition = useMemo(
-    () => (id ? competitions.find((c) => c.id === +id) : null),
-    [competitions, id]
-  );
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setSearchParams((prev) => {
@@ -52,9 +47,7 @@ const Homepage = () => {
         <>
           <div className="flex gap-4">
             <CompetitionList competitions={competitions} />
-            {previewCompetition && (
-              <CompetitionDetails {...previewCompetition} />
-            )}
+            {id && <CompetitionDetails />}
           </div>
           {meta && <Pagination {...meta} />}
         </>

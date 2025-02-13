@@ -13,6 +13,8 @@ type Response = {
 export const useCompetitionById = () => {
   const [searchParams] = useSearchParams();
 
+  const competitionId = searchParams.get("id") ?? null;
+
   const [response, setResponse] = useState<Response>({
     competition: null,
     error: false,
@@ -21,8 +23,6 @@ export const useCompetitionById = () => {
 
   useEffect(() => {
     (async () => {
-      const competitionId = searchParams.get("id") ?? null;
-
       if (!competitionId) return;
 
       try {
@@ -45,7 +45,7 @@ export const useCompetitionById = () => {
         setResponse((prev) => ({ ...prev, loading: false }));
       }
     })();
-  }, [searchParams]);
+  }, [competitionId]);
 
   return response;
 };
