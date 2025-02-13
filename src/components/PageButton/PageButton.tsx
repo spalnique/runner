@@ -4,9 +4,13 @@ type PageButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   text: string;
 };
 
-const PageButton = ({ text, ...props }: PageButtonProps) => {
+const PageButton = ({ text, type = "button", ...props }: PageButtonProps) => {
   return (
-    <button className="w-32 rounded bg-cyan-700 p-2 text-white" {...props}>
+    <button
+      className="w-32 rounded bg-cyan-700 p-2 text-white"
+      type={type}
+      {...props}
+    >
       {text}
     </button>
   );

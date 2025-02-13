@@ -12,29 +12,40 @@ import { useCompetitions, useDebounceCall } from "@hooks";
 const Homepage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const { competitions, meta } = useCompetitions(searchParams);
+
   const id = searchParams.get("id");
-  const text = searchParams.get("text") ?? "";
+  const text = searchParams.get("text");
+  const page = meta?.number ? meta.number : 1;
 
-  const { competitions, meta } = useCompetitions();
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setSearchParams((prev) => {
-      console.log(prev.get("id"));
-      prev.set("page", "0");
-      prev.set("text", event.target.value);
+      if (!target.value) {
+        prev.delete("text");
+        prev.delete("page");
+        return prev;
+      }
+
+      prev.set("text", target.value);
+      prev.delete("page");
+
       return prev;
     });
   };
 
-  const handleCurrentPage: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const handleCurrentPage: MouseEventHandler<HTMLButtonElement> = ({
+    currentTarget,
+  }) => {
     setSearchParams((prev) => {
-      const newParams = new URLSearchParams(prev);
-      const currentPage = parseInt(newParams.get("page") ?? "0");
-      newParams.set(
-        "page",
-        (currentPage + Number(event.currentTarget.value)).toString()
-      );
-      return newParams;
+      const newPage = +currentTarget.value + page;
+
+      if (newPage === 1) {
+        prev.delete("page");
+        return prev;
+      }
+
+      prev.set("page", `${newPage}`);
+      return prev;
     });
   };
 
@@ -43,7 +54,7 @@ const Homepage = () => {
   return (
     <main className="flex grow flex-col gap-5 px-8 py-5">
       <CompetitionSearchInput
-        defaultValue={text}
+        defaultValue={text ?? ""}
         onChange={debouncedHandleChange}
         autoFocus
       />

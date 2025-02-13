@@ -1,18 +1,19 @@
-import { NavLink, useLocation, useSearchParams } from "react-router";
+import { NavLink, useSearchParams } from "react-router";
 
 import { Competition } from "@types";
 
 type CompetitionListItemProps = { competition: Competition };
 
 const CompetitionListItem = ({ competition }: CompetitionListItemProps) => {
-  const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
 
-  searchParams.set("id", competition.id.toString());
-  console.log(`${pathname}?${searchParams.toString()}`);
+  const query = new URLSearchParams(searchParams);
+
+  query.set("id", `${competition.id}`);
+
   return (
     <li key={competition.id}>
-      <NavLink to={`${pathname}?${searchParams.toString()}`}>
+      <NavLink to={`?${query.toString()}`}>
         <p>{competition.name}</p>
         <p>{competition.status}</p>
       </NavLink>

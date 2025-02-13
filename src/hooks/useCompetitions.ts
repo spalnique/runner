@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
 
 import { getCompetitions } from "@api";
 import { Competition, GetAllMeta } from "@types";
@@ -12,9 +11,7 @@ type Response = {
   loading: boolean;
 };
 
-export const useCompetitions = () => {
-  const [searchParams] = useSearchParams();
-
+export const useCompetitions = (searchParams: URLSearchParams) => {
   const [response, setResponse] = useState<Response>({
     competitions: [],
     meta: null,
@@ -36,7 +33,6 @@ export const useCompetitions = () => {
           ...prev,
           error: false,
           loading: true,
-          params,
         }));
 
         const { content, ...responseMeta } = await getCompetitions(params);
@@ -55,5 +51,5 @@ export const useCompetitions = () => {
     })();
   }, [searchParams]);
 
-  return response;
+  return { ...response };
 };
