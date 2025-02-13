@@ -43,6 +43,7 @@ const Homepage = () => {
     <main className="flex grow flex-col gap-5">
       <CompetitionSearchInput
         defaultValue={text ?? ""}
+        placeholder="Search by competition name"
         onChange={debouncedHandleChange}
         autoFocus
       />

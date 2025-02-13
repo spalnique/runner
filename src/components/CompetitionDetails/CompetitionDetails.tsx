@@ -6,7 +6,6 @@ import { Competition } from "@types";
 
 const CompetitionDetails = (competition: Competition) => {
   const [_, setSearchParams] = useSearchParams();
-  // const { competition } = useCompetitionById();
 
   const handleClose: MouseEventHandler<HTMLButtonElement> = () => {
     setSearchParams((prev) => {
