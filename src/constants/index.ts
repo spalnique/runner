@@ -6,3 +6,5 @@ export const initResponseState = {
   error: false,
   loading: false,
 };
+
+export const quickSearchLimit = 5;

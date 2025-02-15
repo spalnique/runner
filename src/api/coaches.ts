@@ -11,7 +11,7 @@ type GetCoaches = (
 type GetCoachById = (id: string) => Promise<AxiosResponse["data"]>;
 
 export const getCoaches: GetCoaches = async (params) => {
-  const { data } = await axiosInstance.get<PaginatedResponse<Coach>>(
+  const { data } = await axiosInstance.get<PaginatedResponse<Coach>["content"]>(
     `/coach/name/${params.text}`
   );
 

@@ -17,7 +17,7 @@ export type PaginatedResponse<T> = {
 export type ResponseMeta<T> = Omit<PaginatedResponse<T>, "content">;
 
 export type ResponseState<T> = {
-  meta?: ResponseMeta<T> | null;
+  meta: ResponseMeta<T> | null;
   content: T | null;
   error: boolean;
   loading: boolean;

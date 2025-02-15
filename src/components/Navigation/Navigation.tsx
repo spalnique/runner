@@ -1,6 +1,7 @@
-import { NavLink } from "react-router";
+import { NavLink, useSearchParams } from "react-router";
 
 const Navigation = () => {
+  const [searchParams] = useSearchParams();
   return (
     <nav className="h-full">
       <ul className="flex h-full items-stretch text-gray-500">
@@ -19,7 +20,7 @@ const Navigation = () => {
         </li>
         <li>
           <NavLink
-            to={"/competitions"}
+            to={`/competition?${searchParams.toString()}`}
             className={({ isActive }) =>
               (isActive
                 ? "border-b-2 border-b-blue-700 font-normal text-gray-700"
@@ -32,7 +33,7 @@ const Navigation = () => {
         </li>
         <li>
           <NavLink
-            to={"/athletes"}
+            to={`/athlete?${searchParams.toString()}`}
             className={({ isActive }) =>
               (isActive
                 ? "border-b-2 border-b-blue-700 font-normal text-gray-700"
@@ -45,7 +46,7 @@ const Navigation = () => {
         </li>
         <li>
           <NavLink
-            to={"/coaches"}
+            to={`/coach?${searchParams.toString()}`}
             className={({ isActive }) =>
               (isActive
                 ? "border-b-2 border-b-blue-700 font-normal text-gray-700"

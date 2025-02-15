@@ -8,3 +8,4 @@ export { default as Pagination } from "./Pagination/Pagination.tsx";
 export { default as Icon } from "./Icon/Icon.tsx";
 export { default as Logo } from "./Logo/Logo.tsx";
 export { default as Navigation } from "./Navigation/Navigation.tsx";
+export { default as SearchResults } from "./SearchResults/SearchResults.tsx";

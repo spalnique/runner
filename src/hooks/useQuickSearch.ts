@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { getAthletes, getCompetitions } from "@api";
+import { getAthletes, getCoaches, getCompetitions } from "@api";
 import { initResponseState as initial } from "@constants";
 import { Athlete, Coach, Competition, ResponseState } from "@types";
 
@@ -8,13 +8,15 @@ type CompetitionsState = ResponseState<Competition[]>;
 type AthletesState = ResponseState<Athlete[]>;
 type CoachesState = ResponseState<Coach[]>;
 
-export const useQuickResults = (searchParams: URLSearchParams) => {
+export const useQuickSearch = (searchParams: URLSearchParams) => {
   const [competitions, setCompetitions] = useState<CompetitionsState>(initial);
   const [athletes, setAthletes] = useState<AthletesState>(initial);
-  const [coaches, _setCoaches] = useState<CoachesState>(initial);
+  const [coaches, setCoaches] = useState<CoachesState>(initial);
 
   useEffect(() => {
     const text = searchParams.get("text") ?? undefined;
+
+    if (!text) return;
 
     getCompetitions({ text, size: 5 })
       .then(({ content, ...responseMeta }) => {
@@ -48,21 +50,22 @@ export const useQuickResults = (searchParams: URLSearchParams) => {
         setAthletes((prev) => ({ ...prev, loading: false }));
       });
 
-    // getCoaches({ text })
-    //   .then(({ content, ...responseMeta }) => {
-    //     setCoaches((prev) => ({
-    //       ...prev,
-    //       content: content.length ? content : null,
-    //       meta: responseMeta,
-    //     }));
-    //   })
-    //   .catch((error) => {
-    //     setCoaches((prev) => ({ ...prev, error: true }));
-    //     console.error(error);
-    //   })
-    //   .finally(() => {
-    //     setCoaches((prev) => ({ ...prev, loading: false }));
-    //   });
+    getCoaches({ text })
+      .then((content) => {
+        if (content.length > 5) content.length = 5;
+
+        setCoaches((prev) => ({
+          ...prev,
+          content: content.length ? content : null,
+        }));
+      })
+      .catch((error) => {
+        setCoaches((prev) => ({ ...prev, error: true }));
+        console.error(error);
+      })
+      .finally(() => {
+        setCoaches((prev) => ({ ...prev, loading: false }));
+      });
   }, [searchParams]);
 
   return { competitions, athletes, coaches };

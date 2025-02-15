@@ -1,15 +1,11 @@
 import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
-import { SearchInput } from "@components";
-import { useDebounceCall, useQuickResults } from "@hooks";
+import { SearchInput, SearchResults } from "@components";
+import { useDebounceCall } from "@hooks";
 
 const Homepage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const { competitions, athletes, coaches } = useQuickResults(searchParams);
-
-  console.log({ competitions, athletes, coaches });
 
   const text = searchParams.get("text");
 
@@ -29,6 +25,7 @@ const Homepage = () => {
   };
 
   const debouncedHandleChange = useDebounceCall(handleChange);
+
   return (
     <main className="flex-grow bg-[url('./assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
       <section className="container flex flex-col">
@@ -38,6 +35,7 @@ const Homepage = () => {
           onChange={debouncedHandleChange}
           defaultValue={text ?? ""}
         />
+        {text && <SearchResults />}
       </section>
     </main>
   );
