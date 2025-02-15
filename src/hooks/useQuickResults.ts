@@ -32,7 +32,7 @@ export const useQuickResults = (searchParams: URLSearchParams) => {
         setCompetitions((prev) => ({ ...prev, loading: false }));
       });
 
-    getAthletes({ text, size: 5 })
+    getAthletes({ nameParts: text, size: 5 })
       .then(({ content, ...responseMeta }) => {
         setAthletes((prev) => ({
           ...prev,
