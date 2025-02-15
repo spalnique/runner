@@ -2,10 +2,14 @@ import { MouseEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
 import { Button } from "@components";
-import { GetCompetitionsMeta } from "@types";
+import { ResponseMeta } from "@types";
 
-const Pagination = ({ number, first, last }: GetCompetitionsMeta) => {
-  const [_, setSearchParams] = useSearchParams();
+const Pagination = <T extends ResponseMeta<never>>({
+  number,
+  first,
+  last,
+}: T) => {
+  const [_searchParams, setSearchParams] = useSearchParams();
 
   const page = number ? number : 1;
 

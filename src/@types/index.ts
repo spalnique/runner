@@ -4,4 +4,5 @@ export type {
   PaginatedResponse,
   SingleResponse,
   ResponseState,
+  ResponseMeta,
 } from "./axios.types.ts";
