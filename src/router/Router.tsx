@@ -9,11 +9,11 @@ const Router = () => {
       <Route path="/competition" element={<Competitions />} />
       <Route
         path="/athlete"
-        element={<div className="flex-grow">Athletes page</div>}
+        element={<main className="flex-grow">Athletes page</main>}
       />
       <Route
         path="/coach"
-        element={<div className="flex-grow">Coaches page</div>}
+        element={<main className="flex-grow">Coaches page</main>}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
