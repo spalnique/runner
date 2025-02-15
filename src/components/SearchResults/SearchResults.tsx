@@ -8,7 +8,7 @@ const SearchResults = () => {
   const results = useQuickSearch(searchParams);
 
   return (
-    <ul className="my-[50px_0] flex divide-x-1 divide-gray-100 rounded-2xl bg-white py-5 shadow-[0_0_3px_1px_rgba(0,0,0,0.1)]">
+    <ul className="my-10 flex h-[calc(100vh-256px)] divide-x-1 divide-gray-100 overflow-y-auto rounded-2xl bg-white py-5 shadow-[0_0_3px_1px_rgba(0,0,0,0.1)]">
       {Object.entries(results).map(([key, { content }]) => (
         <li key={key} className="w-1/3 px-6">
           <span className="capitalize">{key}</span>
