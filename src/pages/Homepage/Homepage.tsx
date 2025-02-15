@@ -30,7 +30,7 @@ const Homepage = () => {
 
   const debouncedHandleChange = useDebounceCall(handleChange);
   return (
-    <main className="flex-grow bg-[url('src/assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
+    <main className="flex-grow bg-[url('./assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
       <section className="container flex flex-col">
         <SearchInput
           className="rounded-b-2xl bg-white placeholder:font-extralight placeholder:text-gray-400"
