@@ -2,50 +2,44 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCompetitionById } from "@api";
-import { Competition } from "@types";
+import { initResponseState } from "@constants";
+import { Competition, ResponseState } from "@types";
 
-type Response = {
-  competition: Competition | null;
-  error: boolean;
-  loading: boolean;
-};
+type CompetitionState = ResponseState<Competition>;
 
 export const useCompetitionById = () => {
   const [searchParams] = useSearchParams();
 
   const competitionId = searchParams.get("id") ?? null;
 
-  const [response, setResponse] = useState<Response>({
-    competition: null,
-    error: false,
-    loading: false,
-  });
+  const [competition, setCompetition] =
+    useState<CompetitionState>(initResponseState);
 
   useEffect(() => {
     (async () => {
       if (!competitionId) return;
 
       try {
-        setResponse((prev) => ({
+        setCompetition((prev) => ({
           ...prev,
           error: false,
           loading: true,
         }));
 
-        const competition = await getCompetitionById(competitionId);
+        const data = await getCompetitionById(competitionId);
 
-        setResponse((prev) => ({
+        setCompetition((prev) => ({
           ...prev,
-          competition,
+          content: data,
         }));
       } catch (error) {
-        setResponse((prev) => ({ ...prev, error: true }));
+        setCompetition((prev) => ({ ...prev, error: true }));
         console.error(error);
       } finally {
-        setResponse((prev) => ({ ...prev, loading: false }));
+        setCompetition((prev) => ({ ...prev, loading: false }));
       }
     })();
   }, [competitionId]);
 
-  return response;
+  return competition;
 };

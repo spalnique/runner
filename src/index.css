@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
+@layer utilities {
+  .bg-fill {
+    background-size: 100vw calc(100vh - 128px);
+  }
+
+  .container {
+    min-width: 320px;
+    max-width: 767px;
+    margin: 0 auto;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .container {
+      min-width: 768px;
+      max-width: 1158px;
+      padding-right: 30px;
+      padding-left: 30px;
+    }
+  }
+}
+
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: white;
+  cursor: default;
 }
 
 a {
@@ -22,5 +45,10 @@ h6 {
 }
 
 #root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
   isolation: isolate;
 }

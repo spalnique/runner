@@ -1,35 +1,25 @@
 import { useEffect, useState } from "react";
 
 import { getCompetitions } from "@api";
-import { Competition, GetAllMeta } from "@types";
+import { initResponseState } from "@constants";
+import { Competition, ResponseState } from "@types";
 
-type Response = {
-  competitions: Competition[];
-  meta: GetAllMeta | null;
-  params: Record<string, string | null> | null;
-  error: boolean;
-  loading: boolean;
-};
+type CompetitionsState = ResponseState<Competition[]>;
 
 export const useCompetitions = (searchParams: URLSearchParams) => {
-  const [response, setResponse] = useState<Response>({
-    competitions: [],
-    meta: null,
-    params: null,
-    error: false,
-    loading: false,
-  });
+  const [competitions, setCompetitions] =
+    useState<CompetitionsState>(initResponseState);
 
   useEffect(() => {
     (async () => {
       const params = {
-        page: searchParams.get("page") ?? null,
-        text: searchParams.get("text") ?? null,
-        status: searchParams.get("status") ?? null,
+        page: searchParams.get("page") ?? undefined,
+        text: searchParams.get("text") ?? undefined,
+        status: searchParams.get("status") ?? undefined,
       };
 
       try {
-        setResponse((prev) => ({
+        setCompetitions((prev) => ({
           ...prev,
           error: false,
           loading: true,
@@ -37,19 +27,19 @@ export const useCompetitions = (searchParams: URLSearchParams) => {
 
         const { content, ...responseMeta } = await getCompetitions(params);
 
-        setResponse((prev) => ({
+        setCompetitions((prev) => ({
           ...prev,
-          competitions: content,
+          content: content.length ? content : null,
           meta: responseMeta,
         }));
       } catch (error) {
-        setResponse((prev) => ({ ...prev, error: true }));
+        setCompetitions((prev) => ({ ...prev, error: true }));
         console.error(error);
       } finally {
-        setResponse((prev) => ({ ...prev, loading: false }));
+        setCompetitions((prev) => ({ ...prev, loading: false }));
       }
     })();
   }, [searchParams]);
 
-  return { ...response };
+  return { ...competitions };
 };

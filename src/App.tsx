@@ -1,13 +1,13 @@
-import { Container, Footer, Header } from "@components";
+import { Footer, Header } from "@layout";
 import { Router } from "@router";
 
 const App = () => {
   return (
-    <Container>
+    <>
       <Header />
       <Router />
       <Footer />
-    </Container>
+    </>
   );
 };
 

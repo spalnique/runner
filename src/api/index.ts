@@ -1,2 +1,3 @@
-export { getCompetitions } from "./getAllCompetitions";
-export { getCompetitionById } from "./getCompetitionById";
+export { getCompetitions, getCompetitionById } from "./competitions.ts";
+export { getAthletes, getAthleteById } from "./athletes.ts";
+export { getCoaches, getCoachById } from "./coaches.ts";

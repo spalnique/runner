@@ -1,20 +1,16 @@
 import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
-import {
-  CompetitionDetails,
-  CompetitionList,
-  CompetitionSearchInput,
-  Pagination,
-} from "@components";
-import { useCompetitions, useDebounceCall } from "@hooks";
+import { SearchInput } from "@components";
+import { useDebounceCall, useQuickResults } from "@hooks";
 
 const Homepage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { competitions, meta } = useCompetitions(searchParams);
+  const { competitions, athletes, coaches } = useQuickResults(searchParams);
 
-  const id = searchParams.get("id");
+  console.log({ competitions, athletes, coaches });
+
   const text = searchParams.get("text");
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -33,25 +29,16 @@ const Homepage = () => {
   };
 
   const debouncedHandleChange = useDebounceCall(handleChange);
-
   return (
-    <main className="flex grow flex-col gap-5">
-      <CompetitionSearchInput
-        defaultValue={text ?? ""}
-        placeholder="Search by competition name"
-        onChange={debouncedHandleChange}
-        autoFocus
-      />
-
-      {!!competitions.length && (
-        <>
-          <div className="flex gap-4">
-            <CompetitionList competitions={competitions} />
-            {id && <CompetitionDetails />}
-          </div>
-          {meta && <Pagination {...meta} />}
-        </>
-      )}
+    <main className="flex-grow bg-[url('src/assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
+      <section className="container flex flex-col">
+        <SearchInput
+          className="rounded-b-2xl bg-white placeholder:font-extralight placeholder:text-gray-400"
+          placeholder="Quick search by keyword"
+          onChange={debouncedHandleChange}
+          defaultValue={text ?? ""}
+        />
+      </section>
     </main>
   );
 };

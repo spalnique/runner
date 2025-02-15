@@ -1,4 +1,5 @@
-export { useCompetitions } from "./useCompetitions";
-export { useDebounce } from "./useDebounce";
-export { useDebounceCall } from "./useDebounceCall";
-export { useCompetitionById } from "./useCompetitionById";
+export { useCompetitions } from "./useCompetitions.ts";
+export { useDebounce } from "./useDebounce.ts";
+export { useDebounceCall } from "./useDebounceCall.ts";
+export { useCompetitionById } from "./useCompetitionById.ts";
+export { useQuickResults } from "./useQuickResults.ts";

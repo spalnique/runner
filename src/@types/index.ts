@@ -1,7 +1,7 @@
+export type { Competition, Athlete, Coach } from "./entities.types.ts";
+
 export type {
-  Competition,
-  GetAllResponse,
-  GetByIdResponse,
-  GetAllParams,
-  GetAllMeta,
-} from "./competition.type.ts";
+  PaginatedResponse,
+  SingleResponse,
+  ResponseState,
+} from "./axios.types.ts";

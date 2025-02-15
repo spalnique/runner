@@ -14,9 +14,13 @@ export default defineConfig({
       "@enums": path.resolve(__dirname, "./src/@enums"),
       "@helpers": path.resolve(__dirname, "./src/helpers"),
       "@hooks": path.resolve(__dirname, "./src/hooks"),
+      "@layout": path.resolve(__dirname, "./src/layout"),
       "@pages": path.resolve(__dirname, "./src/pages"),
       "@router": path.resolve(__dirname, "./src/router"),
       "@types": path.resolve(__dirname, "./src/@types"),
     },
+  },
+  build: {
+    assetsInlineLimit: 0,
   },
 });
