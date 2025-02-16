@@ -11,7 +11,7 @@ export const useCompetitionById = () => {
   const competitionId = searchParams.get("id") ?? null;
 
   const [competition, setCompetition] =
-    useState<ResponseState<Competition[]>>(initResponseState);
+    useState<ResponseState<Competition>>(initResponseState);
 
   useEffect(() => {
     (async () => {

@@ -16,7 +16,7 @@ export type PaginatedResponse<T> = ResponseMeta & {
 
 export type ResponseState<T> = {
   meta: ResponseMeta | null;
-  content: T;
+  content: T | null;
   error: boolean;
   loading: boolean;
 };

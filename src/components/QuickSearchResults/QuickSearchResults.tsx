@@ -16,7 +16,7 @@ const QuickSearchResults = () => {
       <ul className="flex h-full divide-x-1 divide-gray-100">
         {Object.entries(results).map(([key, { content }]) => (
           <li key={key} className="w-1/3">
-            {!!content.length && (
+            {content && !!content.length && (
               <ul className="flex h-full flex-col divide-y-1 divide-gray-100">
                 {content.map((item) => (
                   <li
@@ -32,16 +32,16 @@ const QuickSearchResults = () => {
         ))}
       </ul>
       <ul className="flex divide-x-1 divide-gray-100 shadow-[0_6px_2px_rgba(0,0,0,0.3)]">
-        {Object.entries(results).map(([key, { content, meta, loading }]) => (
+        {Object.entries(results).map(([key, { meta, loading }]) => (
           <li key={key} className="w-1/3">
             {loading ? (
               <QuickSearchStatus statusText="Searching..." />
             ) : meta && meta.totalElements > 5 ? (
               <MoreResults path={key} />
-            ) : !content.length ? (
-              <QuickSearchStatus statusText="Nothing found" />
-            ) : (
+            ) : meta && meta.totalElements ? (
               <QuickSearchStatus statusText="No more results available" />
+            ) : (
+              <QuickSearchStatus statusText="Nothing found" />
             )}
           </li>
         ))}
