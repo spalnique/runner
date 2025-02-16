@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
-import { getAthletes, getCompetitions } from "@api";
-import { initResponseState as initial } from "@constants";
+import { getAthletes, getCoaches, getCompetitions } from "@api";
+import { initResponseState } from "@constants";
 import {
   Athlete,
+  Coach,
   Competition,
   GetPaginatedResponse,
   ResponseState,
@@ -13,34 +14,32 @@ import {
 const dataFetchFn = {
   competitions: getCompetitions,
   athletes: getAthletes,
-  // coaches: getCoaches,
+  coaches: getCoaches,
 };
 
-const allInitial = {
-  competitions: initial,
-  athletes: initial,
-  // coaches: initial,
-};
+const fetchTasks = Object.entries(dataFetchFn) as [
+  keyof Result,
+  GetPaginatedResponse,
+][];
 
 type Result = {
   competitions: ResponseState<Competition[]>;
   athletes: ResponseState<Athlete[]>;
-  // coaches: ResponseState<Coach[]>;
+  coaches: ResponseState<Coach[]>;
 };
 
 export const useQuickSearch = () => {
   const [searchParams] = useSearchParams();
-  const [result, setResult] = useState<Result>(allInitial);
+  const [result, setResult] = useState<Result>({
+    competitions: initResponseState,
+    athletes: initResponseState,
+    coaches: initResponseState,
+  });
 
   useEffect(() => {
     const text = searchParams.get("text") ?? undefined;
 
     if (!text) return;
-
-    const fetchTasks = Object.entries(dataFetchFn) as [
-      keyof Result,
-      GetPaginatedResponse,
-    ][];
 
     fetchTasks.forEach(([entity, fetchFn]) => {
       setResult((prev) => ({

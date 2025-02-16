@@ -6,7 +6,6 @@ export type ResponseMeta = {
   number: number;
   first: boolean;
   last: boolean;
-  empty: boolean;
   totalElements: number;
   totalPages: number;
 };
