@@ -5,12 +5,10 @@ import { getCompetitions } from "@api";
 import { initResponseState } from "@constants";
 import { Competition, ResponseState } from "@types";
 
-type CompetitionsState = ResponseState<Competition[]>;
-
 export const useCompetitions = () => {
   const [searchParams] = useSearchParams();
   const [competitions, setCompetitions] =
-    useState<CompetitionsState>(initResponseState);
+    useState<ResponseState<Competition[]>>(initResponseState);
 
   useEffect(() => {
     (async () => {
