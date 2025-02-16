@@ -4,11 +4,7 @@ import { useSearchParams } from "react-router";
 import { Button } from "@components";
 import { ResponseMeta } from "@types";
 
-const Pagination = <T extends ResponseMeta<never>>({
-  number,
-  first,
-  last,
-}: T) => {
+const Pagination = ({ number, first, last }: ResponseMeta) => {
   const [_searchParams, setSearchParams] = useSearchParams();
 
   const page = number ? number : 1;
