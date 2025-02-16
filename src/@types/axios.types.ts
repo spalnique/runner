@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
+import { AxiosResponse } from "axios";
 
 export type SingleResponse<T> = T;
 
@@ -22,7 +22,7 @@ export type ResponseState<T> = {
 };
 
 export type GetPaginatedResponse = (
-  params: AxiosRequestConfig["params"]
+  params: Record<string, string | number | null> & { size?: number }
 ) => Promise<AxiosResponse["data"]>;
 
 export type GetSingleResponse = (

@@ -1,6 +1,6 @@
 export const baseURL = "https://bots.dns-cloud.net/api/v1";
 
-export const initResponseState = {
+export const initRequestState = {
   content: null,
   meta: null,
   error: false,

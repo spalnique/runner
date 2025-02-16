@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getAthletes, getCoaches, getCompetitions } from "@api";
-import { initResponseState } from "@constants";
+import { initRequestState } from "@constants";
 import {
   Athlete,
   Coach,
@@ -31,15 +31,23 @@ type Result = {
 export const useQuickSearch = () => {
   const [searchParams] = useSearchParams();
   const [result, setResult] = useState<Result>({
-    competitions: initResponseState,
-    athletes: initResponseState,
-    coaches: initResponseState,
+    competitions: initRequestState,
+    athletes: initRequestState,
+    coaches: initRequestState,
   });
 
   useEffect(() => {
-    const text = searchParams.get("text") ?? undefined;
+    const text = searchParams.get("text");
 
-    if (!text) return;
+    if (!text) {
+      setResult({
+        competitions: initRequestState,
+        athletes: initRequestState,
+        coaches: initRequestState,
+      });
+
+      return;
+    }
 
     fetchTasks.forEach(([entity, fetchFn]) => {
       setResult((prev) => ({

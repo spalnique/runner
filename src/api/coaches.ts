@@ -8,15 +8,19 @@ import {
 
 import axiosInstance from "./axios";
 
-export const getCoaches: GetPaginatedResponse = async ({ text, ...params }) => {
+export const getCoaches: GetPaginatedResponse = async ({
+  text,
+  size = 20,
+  ...params
+}) => {
   const { data } = await axiosInstance.get<PaginatedResponse<Coach>["content"]>(
     `/coach/name/${text}`,
-    { params }
+    { params: { ...params, size } }
   );
 
   const totalElements = data.length;
-  const content = data.length > params.size ? data.slice(0, params.size) : data;
-  const totalPages = Math.ceil(data.length / params.size);
+  const content = data.length > size ? data.slice(0, size) : data;
+  const totalPages = Math.ceil(data.length / size);
 
   return {
     content,

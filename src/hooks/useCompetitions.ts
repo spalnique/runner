@@ -2,20 +2,21 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCompetitions } from "@api";
-import { initResponseState } from "@constants";
+import { initRequestState } from "@constants";
 import { Competition, ResponseState } from "@types";
+
+type Result = ResponseState<Competition[]>;
 
 export const useCompetitions = () => {
   const [searchParams] = useSearchParams();
-  const [competitions, setCompetitions] =
-    useState<ResponseState<Competition[]>>(initResponseState);
+  const [competitions, setCompetitions] = useState<Result>(initRequestState);
 
   useEffect(() => {
     (async () => {
       const params = {
-        page: searchParams.get("page") ?? undefined,
-        text: searchParams.get("text") ?? undefined,
-        status: searchParams.get("status") ?? undefined,
+        page: searchParams.get("page"),
+        text: searchParams.get("text"),
+        status: searchParams.get("status"),
       };
 
       try {

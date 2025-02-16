@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCompetitionById } from "@api";
-import { initResponseState } from "@constants";
+import { initRequestState } from "@constants";
 import { Competition, ResponseState } from "@types";
 
 export const useCompetitionById = () => {
@@ -11,7 +11,7 @@ export const useCompetitionById = () => {
   const competitionId = searchParams.get("id") ?? null;
 
   const [competition, setCompetition] =
-    useState<ResponseState<Competition>>(initResponseState);
+    useState<ResponseState<Competition>>(initRequestState);
 
   useEffect(() => {
     (async () => {
