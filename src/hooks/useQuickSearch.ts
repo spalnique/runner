@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getAthletes, getCoaches, getCompetitions } from "@api";
-import { initRequestState } from "@constants";
+import { initPaginatedState } from "@constants";
 import {
   Athlete,
   Coach,
   Competition,
-  GetPaginatedResponse,
+  ContentArray,
+  GetContentArray,
   ResponseState,
 } from "@types";
 
@@ -19,21 +20,21 @@ const dataFetchFn = {
 
 const fetchTasks = Object.entries(dataFetchFn) as [
   keyof Result,
-  GetPaginatedResponse,
+  GetContentArray<Athlete | Competition | Coach>,
 ][];
 
 type Result = {
-  competitions: ResponseState<Competition[]>;
-  athletes: ResponseState<Athlete[]>;
-  coaches: ResponseState<Coach[]>;
+  competitions: ResponseState<ContentArray<Competition>>;
+  athletes: ResponseState<ContentArray<Athlete>>;
+  coaches: ResponseState<ContentArray<Coach>>;
 };
 
 export const useQuickSearch = () => {
   const [searchParams] = useSearchParams();
   const [result, setResult] = useState<Result>({
-    competitions: initRequestState,
-    athletes: initRequestState,
-    coaches: initRequestState,
+    competitions: initPaginatedState,
+    athletes: initPaginatedState,
+    coaches: initPaginatedState,
   });
 
   useEffect(() => {
@@ -41,9 +42,9 @@ export const useQuickSearch = () => {
 
     if (!text) {
       setResult({
-        competitions: initRequestState,
-        athletes: initRequestState,
-        coaches: initRequestState,
+        competitions: initPaginatedState,
+        athletes: initPaginatedState,
+        coaches: initPaginatedState,
       });
 
       return;
@@ -56,10 +57,10 @@ export const useQuickSearch = () => {
       }));
 
       fetchFn({ text, size: 5 })
-        .then(({ content, ...responseMeta }) => {
+        .then((data) => {
           setResult((prev) => ({
             ...prev,
-            [entity]: { ...prev[entity], content, meta: responseMeta },
+            [entity]: { ...prev[entity], ...data },
           }));
         })
         .catch((error) => {

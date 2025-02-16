@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
-import { getAthleteById } from "@api";
-import { initRequestState } from "@constants";
-import { Competition, ResponseState } from "@types";
+import { getCompetitionById } from "@api";
+import { initSingleState } from "@constants";
+import { Competition, Content, ResponseState } from "@types";
+
+type QueryState = ResponseState<Content<Competition>>;
 
 export const useCompetitionById = () => {
   const [searchParams] = useSearchParams();
 
-  const [competition, setCompetition] =
-    useState<ResponseState<Competition>>(initRequestState);
+  const [competition, setCompetition] = useState<QueryState>(initSingleState);
 
   useEffect(() => {
     const competitionId = searchParams.get("id");
 
     if (!competitionId) {
-      setCompetition(initRequestState);
+      setCompetition(initSingleState);
       return;
     }
 
@@ -25,9 +26,9 @@ export const useCompetitionById = () => {
       loading: true,
     }));
 
-    getAthleteById(competitionId)
+    getCompetitionById(competitionId)
       .then((data) => {
-        setCompetition((prev) => ({ ...prev, content: data }));
+        setCompetition((prev) => ({ ...prev, ...data }));
       })
       .catch((error) => {
         setCompetition((prev) => ({ ...prev, error: true }));

@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getAthletes } from "@api";
-import { initRequestState } from "@constants";
-import { Athlete, ResponseState } from "@types";
+import { initPaginatedState } from "@constants";
+import { Athlete, ContentArray, ResponseState } from "@types";
+
+type QueryState = ResponseState<ContentArray<Athlete>>;
 
 export const useAthletes = () => {
   const [searchParams] = useSearchParams();
-  const [athletes, setAthletes] =
-    useState<ResponseState<Athlete[]>>(initRequestState);
+  const [athletes, setAthletes] = useState<QueryState>(initPaginatedState);
 
   useEffect(() => {
     const params = {
@@ -20,8 +21,8 @@ export const useAthletes = () => {
     setAthletes((prev) => ({ ...prev, loading: true }));
 
     getAthletes(params)
-      .then(({ content, ...responseMeta }) => {
-        setAthletes((prev) => ({ ...prev, content, meta: responseMeta }));
+      .then((data) => {
+        setAthletes((prev) => ({ ...prev, ...data }));
       })
       .catch((error) => {
         setAthletes((prev) => ({ ...prev, error: true }));

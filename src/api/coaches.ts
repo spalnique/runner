@@ -1,22 +1,15 @@
-import {
-  Coach,
-  GetPaginatedResponse,
-  GetSingleResponse,
-  PaginatedResponse,
-  SingleResponse,
-} from "@types";
+import { Coach, GetContent, GetContentArray } from "@types";
 
 import axiosInstance from "./axios";
 
-export const getCoaches: GetPaginatedResponse = async ({
+export const getCoaches: GetContentArray<Coach> = async ({
   text,
   size = 20,
   ...params
 }) => {
-  const { data } = await axiosInstance.get<PaginatedResponse<Coach>["content"]>(
-    `/coach/name/${text}`,
-    { params: { ...params, size } }
-  );
+  const { data } = await axiosInstance.get<Coach[]>(`/coach/name/${text}`, {
+    params: { ...params, size },
+  });
 
   const totalElements = data.length;
   const content = data.length > size ? data.slice(0, size) : data;
@@ -24,18 +17,18 @@ export const getCoaches: GetPaginatedResponse = async ({
 
   return {
     content,
-    totalElements,
-    totalPages,
-    first: true,
-    last: true,
-    number: 0,
+    pagination: {
+      totalElements,
+      totalPages,
+      first: true,
+      last: true,
+      number: 0,
+    },
   };
 };
 
-export const getCoachById: GetSingleResponse = async (id) => {
-  const { data } = await axiosInstance.get<SingleResponse<Coach>>(
-    `/coach/${id}`
-  );
+export const getCoachById: GetContent<Coach> = async (id) => {
+  const { data } = await axiosInstance.get<Coach>(`/coach/${id}`);
 
-  return data;
+  return { content: data };
 };

@@ -1,8 +1,8 @@
-import { AxiosResponse } from "axios";
+import { AxiosRequestConfig } from "axios";
 
-export type SingleResponse<T> = T;
+export type Content<T> = { content: T | null };
 
-export type ResponseMeta = {
+export type Pagination = {
   number: number;
   first: boolean;
   last: boolean;
@@ -10,21 +10,18 @@ export type ResponseMeta = {
   totalPages: number;
 };
 
-export type PaginatedResponse<T> = ResponseMeta & {
+export type ContentArray<T> = {
   content: T[];
 };
 
 export type ResponseState<T> = {
-  meta: ResponseMeta | null;
-  content: T | null;
+  pagination?: Pagination;
   error: boolean;
   loading: boolean;
-};
+} & T;
 
-export type GetPaginatedResponse = (
-  params: Record<string, string | number | null> & { size?: number }
-) => Promise<AxiosResponse["data"]>;
+export type GetContentArray<T> = (
+  params: AxiosRequestConfig["params"] & { size?: number }
+) => Promise<ContentArray<T> & { pagination: Pagination }>;
 
-export type GetSingleResponse = (
-  id: string | number
-) => Promise<AxiosResponse["data"]>;
+export type GetContent<T> = (id: string | number) => Promise<Content<T>>;

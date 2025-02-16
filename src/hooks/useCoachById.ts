@@ -2,19 +2,21 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCoachById } from "@api";
-import { initRequestState } from "@constants";
-import { Coach, ResponseState } from "@types";
+import { initSingleState } from "@constants";
+import { Coach, Content, ResponseState } from "@types";
+
+type QueryState = ResponseState<Content<Coach>>;
 
 export const useCoachById = () => {
   const [searchParams] = useSearchParams();
 
-  const [coach, setCoach] = useState<ResponseState<Coach>>(initRequestState);
+  const [coach, setCoach] = useState<QueryState>(initSingleState);
 
   useEffect(() => {
     const coachId = searchParams.get("id");
 
     if (!coachId) {
-      setCoach(initRequestState);
+      setCoach(initSingleState);
       return;
     }
 
@@ -26,7 +28,7 @@ export const useCoachById = () => {
 
     getCoachById(coachId)
       .then((data) => {
-        setCoach((prev) => ({ ...prev, content: data }));
+        setCoach((prev) => ({ ...prev, ...data }));
       })
       .catch((error) => {
         setCoach((prev) => ({ ...prev, error: true }));

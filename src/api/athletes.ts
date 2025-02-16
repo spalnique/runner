@@ -1,25 +1,28 @@
 import {
   Athlete,
-  GetPaginatedResponse,
-  GetSingleResponse,
-  PaginatedResponse,
-  SingleResponse,
+  ContentArray,
+  GetContent,
+  GetContentArray,
+  Pagination,
 } from "@types";
 
 import axiosInstance from "./axios";
 
-export const getAthletes: GetPaginatedResponse = async ({ text, ...rest }) => {
-  const { data } = await axiosInstance.get<PaginatedResponse<Athlete>>(
+export const getAthletes: GetContentArray<Athlete> = async ({
+  text,
+  ...rest
+}) => {
+  const {
+    data: { content, ...pagination },
+  } = await axiosInstance.get<ContentArray<Athlete> & Pagination>(
     "/participants",
     { params: { ...rest, nameParts: text } }
   );
 
-  return data;
+  return { content, pagination };
 };
-export const getAthleteById: GetSingleResponse = async (id) => {
-  const { data } = await axiosInstance.get<SingleResponse<Athlete>>(
-    `/participants/${id}`
-  );
+export const getAthleteById: GetContent<Athlete> = async (id) => {
+  const { data } = await axiosInstance.get<Athlete>(`/participants/${id}`);
 
-  return data;
+  return { content: data };
 };

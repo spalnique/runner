@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCompetitions } from "@api";
-import { initRequestState } from "@constants";
-import { Competition, ResponseState } from "@types";
+import { initPaginatedState } from "@constants";
+import { Competition, ContentArray, ResponseState } from "@types";
+
+type QueryState = ResponseState<ContentArray<Competition>>;
 
 export const useCompetitions = () => {
   const [searchParams] = useSearchParams();
   const [competitions, setCompetitions] =
-    useState<ResponseState<Competition[]>>(initRequestState);
+    useState<QueryState>(initPaginatedState);
 
   useEffect(() => {
     const params = {
@@ -20,8 +22,8 @@ export const useCompetitions = () => {
     setCompetitions((prev) => ({ ...prev, loading: true }));
 
     getCompetitions(params)
-      .then(({ content, ...responseMeta }) => {
-        setCompetitions((prev) => ({ ...prev, content, meta: responseMeta }));
+      .then((data) => {
+        setCompetitions((prev) => ({ ...prev, ...data }));
       })
       .catch((error) => {
         setCompetitions((prev) => ({ ...prev, error: true }));

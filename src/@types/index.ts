@@ -1,10 +1,10 @@
 export type { Competition, Athlete, Coach } from "./entities.types.ts";
 
 export type {
-  PaginatedResponse,
-  SingleResponse,
+  ContentArray,
+  Content,
   ResponseState,
-  ResponseMeta,
-  GetSingleResponse,
-  GetPaginatedResponse,
+  Pagination,
+  GetContent,
+  GetContentArray,
 } from "./axios.types.ts";

@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
-import { QuickSearchResults, SearchInput } from "@components";
+import { QuickSearchResults, SearchInput, Section } from "@components";
 import { useDebounceCall } from "@hooks";
 
 const Homepage = () => {
@@ -10,6 +10,8 @@ const Homepage = () => {
   const text = searchParams.get("text");
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
+    target.value = target.value.trimStart();
+
     setSearchParams((prev) => {
       if (!target.value) {
         prev.delete("text");
@@ -28,7 +30,7 @@ const Homepage = () => {
 
   return (
     <main className="flex-grow bg-[url('./assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
-      <section className="container flex flex-col">
+      <Section>
         <SearchInput
           key={text}
           defaultValue={text ?? ""}
@@ -37,7 +39,7 @@ const Homepage = () => {
           autoFocus
         />
         {text && <QuickSearchResults />}
-      </section>
+      </Section>
     </main>
   );
 };

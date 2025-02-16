@@ -1,8 +1,13 @@
 export const baseURL = import.meta.env.VITE_API_URL;
 
-export const initRequestState = {
+export const initPaginatedState = {
+  content: [],
+  error: false,
+  loading: false,
+};
+
+export const initSingleState = {
   content: null,
-  meta: null,
   error: false,
   loading: false,
 };

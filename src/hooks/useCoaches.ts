@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCoaches } from "@api";
-import { initRequestState } from "@constants";
-import { Coach, ResponseState } from "@types";
+import { initPaginatedState } from "@constants";
+import { Coach, ContentArray, ResponseState } from "@types";
+
+type QueryState = ResponseState<ContentArray<Coach>>;
 
 export const useCoaches = () => {
   const [searchParams] = useSearchParams();
-  const [coaches, setCoaches] =
-    useState<ResponseState<Coach[]>>(initRequestState);
+  const [coaches, setCoaches] = useState<QueryState>(initPaginatedState);
 
   useEffect(() => {
     const params = {
@@ -20,8 +21,8 @@ export const useCoaches = () => {
     setCoaches((prev) => ({ ...prev, loading: true }));
 
     getCoaches(params)
-      .then(({ content, ...responseMeta }) => {
-        setCoaches((prev) => ({ ...prev, content, meta: responseMeta }));
+      .then((data) => {
+        setCoaches((prev) => ({ ...prev, ...data }));
       })
       .catch((error) => {
         setCoaches((prev) => ({ ...prev, error: true }));

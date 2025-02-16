@@ -3,16 +3,17 @@ import { useSearchParams } from "react-router";
 
 import {
   CompetitionInfo,
-  CompetitionList,
-  Pagination,
+  PaginationControls,
   SearchInput,
+  SearchResultsList,
+  Section,
 } from "@components";
 import { useCompetitions, useDebounceCall } from "@hooks";
 
 const Competitions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { content, meta } = useCompetitions();
+  const { content, pagination } = useCompetitions();
 
   const id = searchParams.get("id");
   const text = searchParams.get("text");
@@ -35,24 +36,26 @@ const Competitions = () => {
   const debouncedHandleChange = useDebounceCall(handleChange);
 
   return (
-    <main className={`flex grow flex-col gap-5`}>
-      <SearchInput
-        key={text}
-        defaultValue={text ?? ""}
-        placeholder="Search by competition name"
-        onChange={debouncedHandleChange}
-        autoFocus
-      />
+    <main className="flex-grow bg-[url('./assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
+      <Section>
+        <SearchInput
+          key={text}
+          defaultValue={text ?? ""}
+          placeholder="Search by competition name"
+          onChange={debouncedHandleChange}
+          autoFocus
+        />
 
-      {content && (
-        <>
-          <div className="flex gap-4">
-            <CompetitionList competitions={content} />
-            {id && <CompetitionInfo />}
-          </div>
-          {meta && <Pagination {...meta} />}
-        </>
-      )}
+        {text && (
+          <>
+            <div className="flex gap-4">
+              <SearchResultsList result={content} />
+              {id && <CompetitionInfo />}
+            </div>
+            {pagination && <PaginationControls {...pagination} />}
+          </>
+        )}
+      </Section>
     </main>
   );
 };

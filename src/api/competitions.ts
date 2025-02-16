@@ -1,26 +1,26 @@
 import {
   Competition,
-  GetPaginatedResponse,
-  GetSingleResponse,
-  PaginatedResponse,
-  SingleResponse,
+  ContentArray,
+  GetContent,
+  GetContentArray,
+  Pagination,
 } from "@types";
 
 import axiosInstance from "./axios.ts";
 
-export const getCompetitions: GetPaginatedResponse = async (params) => {
-  const { data } = await axiosInstance.get<PaginatedResponse<Competition>>(
+export const getCompetitions: GetContentArray<Competition> = async (params) => {
+  const {
+    data: { content, ...pagination },
+  } = await axiosInstance.get<ContentArray<Competition> & Pagination>(
     "/competitions",
     { params }
   );
 
-  return data;
+  return { content, pagination };
 };
 
-export const getCompetitionById: GetSingleResponse = async (id) => {
-  const { data } = await axiosInstance.get<SingleResponse<Competition>>(
-    `/competitions/${id}`
-  );
+export const getCompetitionById: GetContent<Competition> = async (id) => {
+  const { data } = await axiosInstance.get<Competition>(`/competitions/${id}`);
 
-  return data;
+  return { content: data };
 };
