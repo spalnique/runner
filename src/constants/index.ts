@@ -1,4 +1,4 @@
-export const baseURL = "https://bots.dns-cloud.net/api/v1";
+export const baseURL = import.meta.env.VITE_API_URL;
 
 export const initRequestState = {
   content: null,
