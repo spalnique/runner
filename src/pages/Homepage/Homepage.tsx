@@ -32,7 +32,7 @@ const Homepage = () => {
         <SearchInput
           key={text}
           defaultValue={text ?? ""}
-          placeholder="Quick search by keyword"
+          placeholder="Quick search by competition, athlete or coach"
           onChange={debouncedHandleChange}
           autoFocus
         />
