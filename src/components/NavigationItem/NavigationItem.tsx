@@ -4,7 +4,7 @@ type NavigationItemProps = { name: string; route: string };
 
 const NavigationItem = ({ name, route }: NavigationItemProps) => {
   const [searchParams] = useSearchParams();
-  const query = searchParams.toString() || "";
+  const query = "?" + searchParams.toString() || "";
 
   return (
     <NavLink
