@@ -1,23 +1,22 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-
-import { Coach, PaginatedResponse, SingleResponse } from "@types";
+import {
+  Coach,
+  GetPaginatedResponse,
+  GetSingleResponse,
+  PaginatedResponse,
+  SingleResponse,
+} from "@types";
 
 import axiosInstance from "./axios";
 
-type GetCoaches = (
-  params: AxiosRequestConfig["params"]
-) => Promise<AxiosResponse["data"]>;
-
-type GetCoachById = (id: string) => Promise<AxiosResponse["data"]>;
-
-export const getCoaches: GetCoaches = async (params) => {
+export const getCoaches: GetPaginatedResponse = async ({ text, ...params }) => {
   const { data } = await axiosInstance.get<PaginatedResponse<Coach>["content"]>(
-    `/coach/name/${params.text}`
+    `/coach/name/${text}`,
+    { params }
   );
 
   return data;
 };
-export const getCoachById: GetCoachById = async (id) => {
+export const getCoachById: GetSingleResponse = async (id) => {
   const { data } = await axiosInstance.get<SingleResponse<Coach>>(
     `/coach/${id}`
   );

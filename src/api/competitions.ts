@@ -1,16 +1,14 @@
-import { AxiosRequestConfig, AxiosResponse } from "axios";
-
-import { Competition, PaginatedResponse, SingleResponse } from "@types";
+import {
+  Competition,
+  GetPaginatedResponse,
+  GetSingleResponse,
+  PaginatedResponse,
+  SingleResponse,
+} from "@types";
 
 import axiosInstance from "./axios.ts";
 
-type GetCompetitions = (
-  params: AxiosRequestConfig["params"]
-) => Promise<AxiosResponse["data"]>;
-
-type GetCompetitionById = (id: string) => Promise<AxiosResponse["data"]>;
-
-export const getCompetitions: GetCompetitions = async (params) => {
+export const getCompetitions: GetPaginatedResponse = async (params) => {
   const { data } = await axiosInstance.get<PaginatedResponse<Competition>>(
     "/competitions",
     { params }
@@ -19,7 +17,7 @@ export const getCompetitions: GetCompetitions = async (params) => {
   return data;
 };
 
-export const getCompetitionById: GetCompetitionById = async (id) => {
+export const getCompetitionById: GetSingleResponse = async (id) => {
   const { data } = await axiosInstance.get<SingleResponse<Competition>>(
     `/competitions/${id}`
   );

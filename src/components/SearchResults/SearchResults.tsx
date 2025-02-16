@@ -6,6 +6,7 @@ const SearchResults = () => {
   const [searchParams] = useSearchParams();
 
   const results = useQuickSearch();
+  console.log(results);
 
   return (
     <div className="my-10 flex h-[calc(100vh-260px)] flex-col divide-y-2 divide-blue-700 overflow-hidden rounded-2xl bg-white shadow-[0_0_3px_1px_rgba(0,0,0,0.1)]">
@@ -41,12 +42,11 @@ const SearchResults = () => {
       <ul className="flex divide-x-1 divide-gray-100">
         {Object.entries(results).map(([key, { content, meta, loading }]) => (
           <li key={key} className="w-1/3">
-            {loading && (
+            {loading ? (
               <span className="flex items-center justify-center py-3 font-extralight text-gray-700">
                 Searching...
               </span>
-            )}
-            {meta && meta.totalElements > 5 ? (
+            ) : meta && meta.totalElements > 5 ? (
               <Link
                 to={`/${key}?${searchParams.toString()}`}
                 className="flex w-full items-center justify-center bg-blue-700 py-3 font-extralight text-white transition-all hover:bg-blue-600 hover:font-normal hover:text-white"
