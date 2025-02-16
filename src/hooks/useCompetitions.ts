@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 import { getCompetitions } from "@api";
 import { initResponseState } from "@constants";
@@ -6,7 +7,8 @@ import { Competition, ResponseState } from "@types";
 
 type CompetitionsState = ResponseState<Competition[]>;
 
-export const useCompetitions = (searchParams: URLSearchParams) => {
+export const useCompetitions = () => {
+  const [searchParams] = useSearchParams();
   const [competitions, setCompetitions] =
     useState<CompetitionsState>(initResponseState);
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 
 import { getAthletes, getCoaches, getCompetitions } from "@api";
 import { initResponseState as initial } from "@constants";
@@ -8,7 +9,8 @@ type CompetitionsState = ResponseState<Competition[]>;
 type AthletesState = ResponseState<Athlete[]>;
 type CoachesState = ResponseState<Coach[]>;
 
-export const useQuickSearch = (searchParams: URLSearchParams) => {
+export const useQuickSearch = () => {
+  const [searchParams] = useSearchParams();
   const [competitions, setCompetitions] = useState<CompetitionsState>(initial);
   const [athletes, setAthletes] = useState<AthletesState>(initial);
   const [coaches, setCoaches] = useState<CoachesState>(initial);

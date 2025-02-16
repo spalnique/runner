@@ -12,7 +12,7 @@ import { useCompetitions, useDebounceCall } from "@hooks";
 const Competitions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { content, meta } = useCompetitions(searchParams);
+  const { content, meta } = useCompetitions();
 
   const id = searchParams.get("id");
   const text = searchParams.get("text");
@@ -37,6 +37,7 @@ const Competitions = () => {
   return (
     <main className={`flex grow flex-col gap-5`}>
       <SearchInput
+        key={text}
         defaultValue={text ?? ""}
         placeholder="Search by competition name"
         onChange={debouncedHandleChange}

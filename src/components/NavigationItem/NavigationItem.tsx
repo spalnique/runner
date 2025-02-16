@@ -1,0 +1,21 @@
+import { NavLink, useSearchParams } from "react-router";
+
+type NavigationItemProps = { name: string; route: string };
+
+const NavigationItem = ({ name, route }: NavigationItemProps) => {
+  const [searchParams] = useSearchParams();
+  const query = searchParams.toString() || "";
+
+  return (
+    <NavLink
+      to={route + query}
+      className={({ isActive }) =>
+        (isActive && "border-b-2 border-b-blue-700 font-normal text-gray-700") +
+        " flex h-full items-center justify-center px-5 capitalize transition-all hover:bg-blue-600 hover:text-white"
+      }
+    >
+      {name}
+    </NavLink>
+  );
+};
+export default NavigationItem;

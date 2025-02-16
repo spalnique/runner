@@ -2,16 +2,18 @@ export type SingleResponse<T> = T;
 
 export type PaginatedResponse<T> = {
   content: T[];
-  pageable: {
-    pageNumber: number;
-    pageSize: number;
-    totalElements: number;
-    totalPages: number;
-  };
+  // pageable: {
+  //   pageNumber: number;
+  //   pageSize: number;
+  //   totalElements: number;
+  //   totalPages: number;
+  // };
   number: number;
   first: boolean;
   last: boolean;
   empty: boolean;
+  totalElements: number;
+  totalPages: number;
 };
 
 export type ResponseMeta<T> = Omit<PaginatedResponse<T>, "content">;

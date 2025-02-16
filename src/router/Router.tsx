@@ -6,13 +6,13 @@ const Router = () => {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
-      <Route path="/competition" element={<Competitions />} />
+      <Route path="/competitions" element={<Competitions />} />
       <Route
-        path="/athlete"
+        path="/athletes"
         element={<main className="flex-grow">Athletes page</main>}
       />
       <Route
-        path="/coach"
+        path="/coaches"
         element={<main className="flex-grow">Coaches page</main>}
       />
       <Route path="*" element={<Navigate to="/" replace />} />
