@@ -17,7 +17,7 @@ export type PaginatedResponse<T> = ResponseMeta & {
 
 export type ResponseState<T> = {
   meta: ResponseMeta | null;
-  content: T | null;
+  content: T;
   error: boolean;
   loading: boolean;
 };
@@ -26,4 +26,6 @@ export type GetPaginatedResponse = (
   params: AxiosRequestConfig["params"]
 ) => Promise<AxiosResponse["data"]>;
 
-export type GetSingleResponse = (id: string) => Promise<AxiosResponse["data"]>;
+export type GetSingleResponse = (
+  id: string | number
+) => Promise<AxiosResponse["data"]>;

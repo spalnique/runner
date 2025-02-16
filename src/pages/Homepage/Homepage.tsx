@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
-import { SearchInput, SearchResults } from "@components";
+import { QuickSearchResults, SearchInput } from "@components";
 import { useDebounceCall } from "@hooks";
 
 const Homepage = () => {
@@ -36,7 +36,7 @@ const Homepage = () => {
           onChange={debouncedHandleChange}
           autoFocus
         />
-        {text && <SearchResults />}
+        {text && <QuickSearchResults />}
       </section>
     </main>
   );

@@ -1,4 +1,4 @@
-import { NavLink, useSearchParams } from "react-router";
+import { Link, useSearchParams } from "react-router";
 
 import { Competition } from "@types";
 
@@ -17,12 +17,12 @@ const CompetitionListItem = ({ competition }: CompetitionListItemProps) => {
 
   return (
     <li key={competition.id}>
-      <NavLink
+      <Link
         to={to}
         className={`${isActive ? "shadow-[0_0_3px_1px_rgba(0,0,0,0.1)]" : "shadow-none"} block px-3 py-2 transition-all hover:shadow-[0_0_5px_2px_rgba(0,0,0,0.1)]`}
       >
         <p>{competition.name}</p>
-      </NavLink>
+      </Link>
     </li>
   );
 };
