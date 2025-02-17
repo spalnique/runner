@@ -1,12 +1,13 @@
 import { ComponentPropsWithRef } from "react";
 
+import { getCompetitions } from "@api";
 import {
   MoreResults,
   SearchResultsList,
   SearchResultTitle,
   SearchStatus,
 } from "@components";
-import { useCompetitions } from "@hooks";
+import { useFetchEntities } from "@hooks";
 
 type CompetitionsSearchResultsProps = ComponentPropsWithRef<"div">;
 
@@ -15,7 +16,7 @@ const CompetitionsSearchResults = ({
 }: CompetitionsSearchResultsProps) => {
   console.log("render list");
 
-  const { content, pagination, loading } = useCompetitions();
+  const { content, pagination, loading } = useFetchEntities(getCompetitions);
 
   const total = pagination.totalElements;
 

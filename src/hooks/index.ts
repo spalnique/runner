@@ -7,3 +7,5 @@ export { useCompetitionById } from "./useCompetitionById.ts";
 export { useAthleteById } from "./useAthleteById.ts";
 export { useCoachById } from "./useCoachById.ts";
 export { useQuickSearch } from "./useQuickSearch.ts";
+export { useFetchEntities } from "./useFetchEntities.ts";
+export { useFetchEntityById } from "./useFetchEntityById.ts";

@@ -1,21 +1,20 @@
 import { ComponentPropsWithRef } from "react";
 
+import { getCoaches } from "@api";
 import {
   MoreResults,
   SearchResultsList,
   SearchResultTitle,
   SearchStatus,
 } from "@components";
-import { useCoaches } from "@hooks";
+import { useFetchEntities } from "@hooks";
 
 type CompetitionSearchResultsProps = ComponentPropsWithRef<"div">;
 
-const CompetitionsSearchResults = ({
-  className,
-}: CompetitionSearchResultsProps) => {
+const CoachesSearchResults = ({ className }: CompetitionSearchResultsProps) => {
   console.log("render list");
 
-  const { content, pagination, loading } = useCoaches();
+  const { content, pagination, loading } = useFetchEntities(getCoaches);
 
   const total = pagination.totalElements;
 
@@ -35,4 +34,4 @@ const CompetitionsSearchResults = ({
     </div>
   );
 };
-export default CompetitionsSearchResults;
+export default CoachesSearchResults;

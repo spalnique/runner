@@ -1,19 +1,20 @@
 import { ComponentPropsWithRef } from "react";
 
+import { getAthletes } from "@api";
 import {
   MoreResults,
   SearchResultsList,
   SearchResultTitle,
   SearchStatus,
 } from "@components";
-import { useAthletes } from "@hooks";
+import { useFetchEntities } from "@hooks";
 
 type AthletesSearchResultsProps = ComponentPropsWithRef<"div">;
 
 const AthletesSearchResults = ({ className }: AthletesSearchResultsProps) => {
   console.log("render list");
 
-  const { content, pagination, loading } = useAthletes();
+  const { content, pagination, loading } = useFetchEntities(getAthletes);
 
   const total = pagination.totalElements;
 
