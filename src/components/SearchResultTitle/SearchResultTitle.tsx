@@ -1,11 +1,9 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithRef } from "react";
 
-type SearchResultTitleProps = HTMLAttributes<HTMLSpanElement> & {
-  text: string;
-};
+type SearchResultTitleProps = ComponentPropsWithRef<"span">;
 
 const SearchResultTitle = ({
-  text,
+  children,
   className,
   ...props
 }: SearchResultTitleProps) => {
@@ -14,7 +12,7 @@ const SearchResultTitle = ({
       className={`relative z-1 flex items-center justify-center border-b-2 border-b-blue-700 py-3 font-extralight capitalize ${className}`}
       {...props}
     >
-      {text}
+      {children}
     </span>
   );
 };

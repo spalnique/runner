@@ -2,36 +2,49 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getAthletes } from "@api";
-import { initPaginatedState } from "@constants";
-import { Athlete, ContentArray, ResponseState } from "@types";
+import { initPaginatedState as initial } from "@constants";
+import { Athlete, Pagination } from "@types";
 
-type QueryState = ResponseState<ContentArray<Athlete>>;
-
-export const useAthletes = () => {
+export const useAthletes = (perPage = 5) => {
   const [searchParams] = useSearchParams();
-  const [athletes, setAthletes] = useState<QueryState>(initPaginatedState);
+
+  const [content, setContent] = useState<Athlete[]>(initial.content);
+  const [pagination, setPagination] = useState<Pagination>(initial.pagination);
+  const [loading, setLoading] = useState(initial.loading);
+  const [error, setError] = useState(initial.error);
+
+  const handleResetAll = () => {
+    setContent(initial.content);
+    setPagination(initial.pagination);
+    setLoading(initial.loading);
+    setError(initial.error);
+  };
 
   useEffect(() => {
-    const params = {
-      page: searchParams.get("page"),
-      text: searchParams.get("text"),
-      status: searchParams.get("status"),
-    };
+    const page = searchParams.get("page");
+    const text = searchParams.get("text");
+    const status = searchParams.get("status");
 
-    setAthletes((prev) => ({ ...prev, loading: true }));
+    if (!page && !text && !status) {
+      handleResetAll();
+      return;
+    }
 
-    getAthletes(params)
-      .then((data) => {
-        setAthletes((prev) => ({ ...prev, ...data }));
+    setLoading(true);
+
+    getAthletes({ page, text, status, size: perPage })
+      .then(({ content, pagination }) => {
+        setContent(content);
+        setPagination((prev) => ({ ...prev, ...pagination }));
       })
       .catch((error) => {
-        setAthletes((prev) => ({ ...prev, error: true }));
-        console.error(error);
+        setError(true);
+        console.warn(error);
       })
       .finally(() => {
-        setAthletes((prev) => ({ ...prev, loading: false }));
+        setLoading(false);
       });
-  }, [searchParams]);
+  }, [searchParams, perPage]);
 
-  return athletes;
+  return { content, pagination, loading, error };
 };

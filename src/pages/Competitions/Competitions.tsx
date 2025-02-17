@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router";
 
 import {
   CompetitionInfo,
+  Main,
   PaginationControls,
   SearchInput,
   SearchResultsList,
@@ -36,7 +37,7 @@ const Competitions = () => {
   const debouncedHandleChange = useDebounceCall(handleChange);
 
   return (
-    <main className="flex-grow bg-[url('./assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
+    <Main>
       <Section>
         <SearchInput
           key={text}
@@ -56,7 +57,7 @@ const Competitions = () => {
           </>
         )}
       </Section>
-    </main>
+    </Main>
   );
 };
 export default Competitions;

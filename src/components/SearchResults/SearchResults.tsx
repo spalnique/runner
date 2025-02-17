@@ -1,8 +1,8 @@
 import {
   MoreResults,
   SearchResultsList,
-  SearchResultStatus,
   SearchResultTitle,
+  SearchStatus,
 } from "@components";
 import {
   Athlete,
@@ -15,27 +15,27 @@ import {
 type SearchResultsProps = ResponseState<
   ContentArray<Competition | Athlete | Coach>
 > & {
-  entity: string;
+  title: string;
 };
 
 const SearchResults = ({
-  entity,
+  title,
   content,
   loading,
   pagination,
 }: SearchResultsProps) => {
   return (
-    <div className="divide-x-1 divide-gray-100">
-      <SearchResultTitle text={entity} />
+    <div className="divide-y-2 divide-blue-700">
+      <SearchResultTitle>{title}</SearchResultTitle>
       <SearchResultsList result={content} />
       {loading ? (
-        <SearchResultStatus statusText="Searching..." />
+        <SearchStatus status="Searching..." />
       ) : pagination && pagination.totalElements > 5 ? (
-        <MoreResults path={entity} />
+        <MoreResults path={title} />
       ) : pagination && pagination.totalElements ? (
-        <SearchResultStatus statusText="No more results available" />
+        <SearchStatus status="No more results available" />
       ) : (
-        <SearchResultStatus statusText="Nothing found" />
+        <SearchStatus status="Nothing found" />
       )}
     </div>
   );

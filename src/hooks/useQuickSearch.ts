@@ -23,6 +23,12 @@ const fetchTasks = Object.entries(dataFetchFn) as [
   GetContentArray<Athlete | Competition | Coach>,
 ][];
 
+const initState = {
+  competitions: initPaginatedState,
+  athletes: initPaginatedState,
+  coaches: initPaginatedState,
+};
+
 type Result = {
   competitions: ResponseState<ContentArray<Competition>>;
   athletes: ResponseState<ContentArray<Athlete>>;
@@ -31,21 +37,13 @@ type Result = {
 
 export const useQuickSearch = () => {
   const [searchParams] = useSearchParams();
-  const [result, setResult] = useState<Result>({
-    competitions: initPaginatedState,
-    athletes: initPaginatedState,
-    coaches: initPaginatedState,
-  });
+  const [result, setResult] = useState<Result>(initState);
 
   useEffect(() => {
     const text = searchParams.get("text");
 
     if (!text) {
-      setResult({
-        competitions: initPaginatedState,
-        athletes: initPaginatedState,
-        coaches: initPaginatedState,
-      });
+      setResult(initState);
 
       return;
     }

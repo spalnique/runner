@@ -2,6 +2,13 @@ export const baseURL = import.meta.env.VITE_API_URL;
 
 export const initPaginatedState = {
   content: [],
+  pagination: {
+    first: true,
+    last: false,
+    number: 0,
+    totalPages: 0,
+    totalElements: 0,
+  },
   error: false,
   loading: false,
 };
@@ -11,8 +18,6 @@ export const initSingleState = {
   error: false,
   loading: false,
 };
-
-export const quickSearchLimit = 5;
 
 export const routes = {
   home: "",

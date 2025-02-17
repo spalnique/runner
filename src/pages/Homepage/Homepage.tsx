@@ -1,7 +1,7 @@
 import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
-import { QuickSearchResults, SearchInput, Section } from "@components";
+import { Main, QuickSearchResults, SearchInput, Section } from "@components";
 import { useDebounceCall } from "@hooks";
 
 const Homepage = () => {
@@ -29,7 +29,7 @@ const Homepage = () => {
   const debouncedHandleChange = useDebounceCall(handleChange);
 
   return (
-    <main className="flex-grow bg-[url('./assets/images/backgrounds/bg-running-track-1920.webp')] bg-cover bg-center bg-no-repeat">
+    <Main>
       <Section>
         <SearchInput
           key={text}
@@ -40,7 +40,7 @@ const Homepage = () => {
         />
         {text && <QuickSearchResults />}
       </Section>
-    </main>
+    </Main>
   );
 };
 export default Homepage;

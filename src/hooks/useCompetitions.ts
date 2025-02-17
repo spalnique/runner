@@ -2,37 +2,49 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { getCompetitions } from "@api";
-import { initPaginatedState } from "@constants";
-import { Competition, ContentArray, ResponseState } from "@types";
+import { initPaginatedState as initial } from "@constants";
+import { Competition, Pagination } from "@types";
 
-type QueryState = ResponseState<ContentArray<Competition>>;
-
-export const useCompetitions = () => {
+export const useCompetitions = (perPage = 5) => {
   const [searchParams] = useSearchParams();
-  const [competitions, setCompetitions] =
-    useState<QueryState>(initPaginatedState);
+
+  const [content, setContent] = useState<Competition[]>(initial.content);
+  const [pagination, setPagination] = useState<Pagination>(initial.pagination);
+  const [loading, setLoading] = useState(initial.loading);
+  const [error, setError] = useState(initial.error);
+
+  const handleResetAll = () => {
+    setContent(initial.content);
+    setPagination(initial.pagination);
+    setLoading(initial.loading);
+    setError(initial.error);
+  };
 
   useEffect(() => {
-    const params = {
-      page: searchParams.get("page"),
-      text: searchParams.get("text"),
-      status: searchParams.get("status"),
-    };
+    const page = searchParams.get("page");
+    const text = searchParams.get("text");
+    const status = searchParams.get("status");
 
-    setCompetitions((prev) => ({ ...prev, loading: true }));
+    if (!page && !text && !status) {
+      handleResetAll();
+      return;
+    }
 
-    getCompetitions(params)
-      .then((data) => {
-        setCompetitions((prev) => ({ ...prev, ...data }));
+    setLoading(true);
+
+    getCompetitions({ page, text, status, size: perPage })
+      .then(({ content, pagination }) => {
+        setContent(content);
+        setPagination((prev) => ({ ...prev, ...pagination }));
       })
       .catch((error) => {
-        setCompetitions((prev) => ({ ...prev, error: true }));
-        console.error(error);
+        setError(true);
+        console.warn(error);
       })
       .finally(() => {
-        setCompetitions((prev) => ({ ...prev, loading: false }));
+        setLoading(false);
       });
-  }, [searchParams]);
+  }, [searchParams, perPage]);
 
-  return competitions;
+  return { content, pagination, loading, error };
 };
