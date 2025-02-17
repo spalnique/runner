@@ -21,7 +21,7 @@ export const initSingleState = {
 
 export const routes = {
   home: "",
-  competitions: "competitions",
-  athletes: "athletes",
-  coaches: "coaches",
+  competitions: "/competitions",
+  athletes: "/athletes",
+  coaches: "/coaches",
 };
