@@ -13,6 +13,8 @@ type CompetitionsSearchResultsProps = ComponentPropsWithRef<"div">;
 const CompetitionsSearchResults = ({
   className,
 }: CompetitionsSearchResultsProps) => {
+  console.log("render list");
+
   const { content, pagination, loading } = useCompetitions();
 
   const total = pagination.totalElements;

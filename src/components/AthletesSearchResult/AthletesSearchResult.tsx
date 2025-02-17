@@ -11,6 +11,8 @@ import { useAthletes } from "@hooks";
 type AthletesSearchResultsProps = ComponentPropsWithRef<"div">;
 
 const AthletesSearchResults = ({ className }: AthletesSearchResultsProps) => {
+  console.log("render list");
+
   const { content, pagination, loading } = useAthletes();
 
   const total = pagination.totalElements;

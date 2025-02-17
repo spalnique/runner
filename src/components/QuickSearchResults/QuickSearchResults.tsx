@@ -7,6 +7,8 @@ import {
 } from "@components";
 
 const QuickSearchResults = () => {
+  console.clear();
+  console.log("render");
   return (
     <SearchResultsWrapper>
       <SearchResultTitle className="bg-blue-700 font-medium text-white">
