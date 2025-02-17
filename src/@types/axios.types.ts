@@ -19,7 +19,7 @@ export type ResponseState<T> = {
 } & T;
 
 export type QueryParams = {
-  size?: ReturnType<typeof URLSearchParams.prototype.get>;
+  size?: number;
   text?: ReturnType<typeof URLSearchParams.prototype.get>;
   page?: ReturnType<typeof URLSearchParams.prototype.get>;
   status?: ReturnType<typeof URLSearchParams.prototype.get>;

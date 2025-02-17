@@ -11,7 +11,7 @@ import { QueryParams } from "@types";
 const QuickSearchResults = () => {
   const { textQuery } = useQueryContext();
 
-  const params: QueryParams = { text: textQuery, size: "5" };
+  const params: QueryParams = { text: textQuery, size: 5 };
 
   return (
     <SearchResultsWrapper>

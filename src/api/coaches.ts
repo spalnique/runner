@@ -4,7 +4,7 @@ import axiosInstance from "./axios";
 
 export const getCoaches: GetEntities<Coach> = async ({
   text,
-  size = 20,
+  size = 10,
   ...params
 }) => {
   const { data } = await axiosInstance.get<Coach[]>(`/coach/name/${text}`, {
