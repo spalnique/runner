@@ -1,29 +1,16 @@
 import { ChangeEventHandler } from "react";
-import { useSearchParams } from "react-router";
 
 import { Main, QuickSearchResults, SearchInput, Section } from "@components";
+import { useQueryContext } from "@contexts";
 import { useDebounceCall } from "@hooks";
 
 const Homepage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const text = searchParams.get("text");
+  const { textQuery, setTextQuery } = useQueryContext();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     target.value = target.value.trimStart();
 
-    setSearchParams((prev) => {
-      if (!target.value) {
-        prev.delete("text");
-        prev.delete("page");
-        return prev;
-      }
-
-      prev.set("text", target.value);
-      prev.delete("page");
-
-      return prev;
-    });
+    setTextQuery(target.value);
   };
 
   const debouncedHandleChange = useDebounceCall(handleChange);
@@ -32,13 +19,13 @@ const Homepage = () => {
     <Main>
       <Section>
         <SearchInput
-          key={text}
-          defaultValue={text ?? ""}
+          key={textQuery}
+          defaultValue={textQuery ?? ""}
           placeholder="Quick search by competition, athlete or coach"
           onChange={debouncedHandleChange}
           autoFocus
         />
-        {text && <QuickSearchResults />}
+        {textQuery && <QuickSearchResults />}
       </Section>
     </Main>
   );

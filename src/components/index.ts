@@ -1,4 +1,3 @@
-export { default as Demo } from "./Demo/Demo.tsx";
 export { default as Button } from "./Button/Button.tsx";
 export { default as SearchInput } from "./SearchInput/SearchInput.tsx";
 export { default as SearchResults } from "./SearchResults/SearchResults.tsx";

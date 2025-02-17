@@ -1,22 +1,19 @@
 import { MouseEventHandler } from "react";
-import { useSearchParams } from "react-router";
 
 import { getCompetitionById } from "@api";
 import { Button } from "@components";
+import { useQueryContext } from "@contexts";
 import { useFetchEntityById } from "@hooks";
 import { Competition, Content, ResponseState } from "@types";
 
 const CompetitionInfo = () => {
-  const [_, setSearchParams] = useSearchParams();
+  const { setIdQuery } = useQueryContext();
   const { content } = useFetchEntityById(getCompetitionById) as ResponseState<
     Content<Competition>
   >;
 
   const handleClose: MouseEventHandler<HTMLButtonElement> = () => {
-    setSearchParams((prev) => {
-      prev.delete("id");
-      return prev;
-    });
+    setIdQuery();
   };
 
   return (

@@ -1,30 +1,18 @@
 import { ChangeEventHandler } from "react";
-import { useSearchParams } from "react-router";
 
 import { Main, SearchInput, Section } from "@components";
+import { useQueryContext } from "@contexts";
 import { useDebounceCall } from "@hooks";
 
 const Competitions = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { textQuery, setTextQuery } = useQueryContext();
 
   // const { content, pagination } = useCompetitions();
 
   // const id = searchParams.get("id");
-  const text = searchParams.get("text");
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setSearchParams((prev) => {
-      if (!target.value) {
-        prev.delete("text");
-        prev.delete("page");
-        return prev;
-      }
-
-      prev.set("text", target.value);
-      prev.delete("page");
-
-      return prev;
-    });
+    setTextQuery(target.value);
   };
 
   const debouncedHandleChange = useDebounceCall(handleChange);
@@ -33,8 +21,8 @@ const Competitions = () => {
     <Main>
       <Section>
         <SearchInput
-          key={text}
-          defaultValue={text ?? ""}
+          key={textQuery}
+          defaultValue={textQuery ?? ""}
           placeholder="Search by competition name"
           onChange={debouncedHandleChange}
           autoFocus

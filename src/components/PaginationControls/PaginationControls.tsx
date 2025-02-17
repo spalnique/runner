@@ -1,28 +1,25 @@
 import { MouseEventHandler } from "react";
-import { useSearchParams } from "react-router";
 
 import { Button } from "@components";
+import { useQueryContext } from "@contexts";
 import { Pagination } from "@types";
 
 const PaginationControls = ({ number, first, last }: Pagination) => {
-  const [_searchParams, setSearchParams] = useSearchParams();
+  const { setPageQuery } = useQueryContext();
 
   const page = number ? number : 1;
 
   const handleCurrentPage: MouseEventHandler<HTMLButtonElement> = ({
     currentTarget,
   }) => {
-    setSearchParams((prev) => {
-      const newPage = +currentTarget.value + page;
+    const newPage = +currentTarget.value + page;
 
-      if (newPage === 1) {
-        prev.delete("page");
-        return prev;
-      }
+    if (newPage === 1) {
+      setPageQuery();
+      return;
+    }
 
-      prev.set("page", `${newPage}`);
-      return prev;
-    });
+    setPageQuery(newPage);
   };
   return (
     <>

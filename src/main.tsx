@@ -5,10 +5,12 @@ import App from "./App.tsx";
 
 import "./index.css";
 
+import { StrictMode } from "react";
+
 createRoot(document.getElementById("root")!).render(
-  // <StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
-  // </StrictMode>
+  <StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>
 );
