@@ -24,6 +24,7 @@ const SearchResults = ({
   loading,
   pagination,
 }: SearchResultsProps) => {
+  console.log("render list");
   return (
     <div className="divide-x-1 divide-gray-100">
       <SearchResultTitle text={entity} />

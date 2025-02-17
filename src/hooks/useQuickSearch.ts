@@ -12,22 +12,28 @@ import {
   ResponseState,
 } from "@types";
 
-const dataFetchFn = {
-  competitions: getCompetitions,
-  athletes: getAthletes,
-  coaches: getCoaches,
-};
-
-const fetchTasks = Object.entries(dataFetchFn) as [
-  keyof Result,
-  GetContentArray<Athlete | Competition | Coach>,
-][];
-
 type Result = {
   competitions: ResponseState<ContentArray<Competition>>;
   athletes: ResponseState<ContentArray<Athlete>>;
   coaches: ResponseState<ContentArray<Coach>>;
 };
+
+type EntityKey = keyof typeof entity;
+type EntityValue = (typeof entity)[EntityKey];
+
+const entity: Record<
+  keyof Result,
+  {
+    fetchFn: GetContentArray<Competition | Athlete | Coach>;
+    init: typeof initPaginatedState;
+  }
+> = {
+  competitions: { fetchFn: getCompetitions, init: initPaginatedState },
+  athletes: { fetchFn: getAthletes, init: initPaginatedState },
+  coaches: { fetchFn: getCoaches, init: initPaginatedState },
+};
+
+const fetchTasks = Object.entries(entity) as [EntityKey, EntityValue][];
 
 export const useQuickSearch = () => {
   const [searchParams] = useSearchParams();
@@ -42,15 +48,15 @@ export const useQuickSearch = () => {
 
     if (!text) {
       setResult({
-        competitions: initPaginatedState,
-        athletes: initPaginatedState,
-        coaches: initPaginatedState,
+        competitions: entity.competitions.init,
+        athletes: entity.athletes.init,
+        coaches: entity.coaches.init,
       });
 
       return;
     }
 
-    fetchTasks.forEach(([entity, fetchFn]) => {
+    fetchTasks.forEach(([entity, { fetchFn }]) => {
       setResult((prev) => ({
         ...prev,
         [entity]: { ...prev[entity], loading: true, error: false },
