@@ -1,17 +1,14 @@
 import {
   Athlete,
   ContentArray,
-  GetContent,
-  GetContentArray,
+  GetEntities,
+  GetEntityById,
   Pagination,
 } from "@types";
 
 import axiosInstance from "./axios";
 
-export const getAthletes: GetContentArray<Athlete> = async ({
-  text,
-  ...rest
-}) => {
+export const getAthletes: GetEntities<Athlete> = async ({ text, ...rest }) => {
   const {
     data: { content, ...pagination },
   } = await axiosInstance.get<ContentArray<Athlete> & Pagination>(
@@ -21,7 +18,7 @@ export const getAthletes: GetContentArray<Athlete> = async ({
 
   return { content, pagination };
 };
-export const getAthleteById: GetContent<Athlete> = async (id) => {
+export const getAthleteById: GetEntityById<Athlete> = async (id) => {
   const { data } = await axiosInstance.get<Athlete>(`/participants/${id}`);
 
   return { content: data };

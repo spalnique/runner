@@ -8,7 +8,7 @@ import {
   Coach,
   Competition,
   ContentArray,
-  GetContentArray,
+  GetEntities,
   ResponseState,
 } from "@types";
 
@@ -24,7 +24,7 @@ type EntityValue = (typeof entity)[EntityKey];
 const entity: Record<
   keyof Result,
   {
-    fetchFn: GetContentArray<Competition | Athlete | Coach>;
+    fetchFn: GetEntities<Competition | Athlete | Coach>;
     init: typeof initPaginatedState;
   }
 > = {

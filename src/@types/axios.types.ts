@@ -20,8 +20,8 @@ export type ResponseState<T> = {
   loading: boolean;
 } & T;
 
-export type GetContentArray<T> = (
+export type GetEntities<T> = (
   params: AxiosRequestConfig["params"] & { size?: number }
 ) => Promise<ContentArray<T> & { pagination: Pagination }>;
 
-export type GetContent<T> = (id: string | number) => Promise<Content<T>>;
+export type GetEntityById<T> = (id: string | number) => Promise<Content<T>>;

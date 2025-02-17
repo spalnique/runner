@@ -5,6 +5,6 @@ export type {
   Content,
   ResponseState,
   Pagination,
-  GetContent,
-  GetContentArray,
+  GetEntityById,
+  GetEntities,
 } from "./axios.types.ts";

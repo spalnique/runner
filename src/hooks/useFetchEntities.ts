@@ -2,17 +2,11 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 
 import { initPaginatedState as initial } from "@constants";
-import {
-  Athlete,
-  Coach,
-  Competition,
-  GetContentArray,
-  Pagination,
-} from "@types";
+import { Athlete, Coach, Competition, GetEntities, Pagination } from "@types";
 
 export const useFetchEntities = (
-  fetchFn: GetContentArray<Athlete | Competition | Coach>,
-  perPage = 5
+  fetchFn: GetEntities<Athlete | Competition | Coach>,
+  size = 5
 ) => {
   const [searchParams] = useSearchParams();
 
@@ -24,15 +18,16 @@ export const useFetchEntities = (
   const [error, setError] = useState(initial.error);
 
   useEffect(() => {
-    const page = searchParams.get("page");
-    const text = searchParams.get("text");
-    const status = searchParams.get("status");
-
-    if (!page && !text && !status) return;
+    const params = {
+      page: searchParams.get("page"),
+      text: searchParams.get("text"),
+      status: searchParams.get("status"),
+      size,
+    };
 
     setLoading(true);
 
-    fetchFn({ page, text, status, size: perPage })
+    fetchFn(params)
       .then(({ content, pagination }) => {
         setContent(content);
         setPagination((prev) => ({ ...prev, ...pagination }));
@@ -44,7 +39,7 @@ export const useFetchEntities = (
       .finally(() => {
         setLoading(false);
       });
-  }, [fetchFn, perPage, searchParams]);
+  }, [fetchFn, searchParams, size]);
 
   return { content, pagination, loading, error };
 };

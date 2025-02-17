@@ -47,7 +47,7 @@ const Competitions = () => {
           autoFocus
         />
 
-        {text && (
+        {
           <>
             <div className="flex gap-4">
               <SearchResultsList result={content} />
@@ -55,7 +55,7 @@ const Competitions = () => {
             </div>
             {pagination && <PaginationControls {...pagination} />}
           </>
-        )}
+        }
       </Section>
     </Main>
   );

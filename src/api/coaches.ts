@@ -1,8 +1,8 @@
-import { Coach, GetContent, GetContentArray } from "@types";
+import { Coach, GetEntities, GetEntityById } from "@types";
 
 import axiosInstance from "./axios";
 
-export const getCoaches: GetContentArray<Coach> = async ({
+export const getCoaches: GetEntities<Coach> = async ({
   text,
   size = 20,
   ...params
@@ -27,7 +27,7 @@ export const getCoaches: GetContentArray<Coach> = async ({
   };
 };
 
-export const getCoachById: GetContent<Coach> = async (id) => {
+export const getCoachById: GetEntityById<Coach> = async (id) => {
   const { data } = await axiosInstance.get<Coach>(`/coach/${id}`);
 
   return { content: data };
