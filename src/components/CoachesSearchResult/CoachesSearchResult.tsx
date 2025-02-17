@@ -12,8 +12,6 @@ import { useFetchEntities } from "@hooks";
 type Props = ComponentPropsWithRef<"div">;
 
 const CoachesSearchResults = ({ className }: Props) => {
-  console.log("render list");
-
   const { content, pagination, loading } = useFetchEntities(getCoaches);
 
   const total = pagination.totalElements;
