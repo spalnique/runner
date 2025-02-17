@@ -6,9 +6,9 @@ type Props = HTMLAttributes<HTMLUListElement> & {
   result: (Athlete | Competition | Coach)[];
 };
 
-const SearchResultsList = ({ result, className, ...Props }: Props) => {
+const SearchResultsList = ({ result, className, ...props }: Props) => {
   return (
-    <ul className={`flex h-50 flex-col ${className}`} {...Props}>
+    <ul className={`flex h-50 flex-col ${className}`} {...props}>
       {result.map((item) => (
         <li
           key={item.id}
