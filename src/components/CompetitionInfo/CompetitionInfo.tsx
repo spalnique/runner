@@ -1,12 +1,16 @@
 import { MouseEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
+import { getCompetitionById } from "@api";
 import { Button } from "@components";
-import { useCompetitionById } from "@hooks";
+import { useFetchEntityById } from "@hooks";
+import { Competition, Content, ResponseState } from "@types";
 
 const CompetitionInfo = () => {
   const [_, setSearchParams] = useSearchParams();
-  const { content: competition } = useCompetitionById();
+  const { content } = useFetchEntityById(getCompetitionById) as ResponseState<
+    Content<Competition>
+  >;
 
   const handleClose: MouseEventHandler<HTMLButtonElement> = () => {
     setSearchParams((prev) => {
@@ -17,14 +21,14 @@ const CompetitionInfo = () => {
 
   return (
     <>
-      {competition && (
+      {content && (
         <>
           <div className="my-2 flex w-[60%] flex-col justify-between px-4 py-4 shadow-[0_0_3px_1px_rgba(0,0,0,0.1)]">
             <div className="flex flex-col gap-2">
-              <span>{competition.name}</span>
-              <span>Статус: {competition.status}</span>
-              <span>Початок змагань: {competition.beginDate}</span>
-              <span>Останній день змагань: {competition.endDate}</span>
+              <span>{content.name}</span>
+              <span>Статус: {content.status}</span>
+              <span>Початок змагань: {content.beginDate}</span>
+              <span>Останній день змагань: {content.endDate}</span>
             </div>
             <Button
               text="Close preview"

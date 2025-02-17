@@ -1,22 +1,15 @@
 import { ChangeEventHandler } from "react";
 import { useSearchParams } from "react-router";
 
-import {
-  CompetitionInfo,
-  Main,
-  PaginationControls,
-  SearchInput,
-  SearchResultsList,
-  Section,
-} from "@components";
-import { useCompetitions, useDebounceCall } from "@hooks";
+import { Main, SearchInput, Section } from "@components";
+import { useDebounceCall } from "@hooks";
 
 const Competitions = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { content, pagination } = useCompetitions();
+  // const { content, pagination } = useCompetitions();
 
-  const id = searchParams.get("id");
+  // const id = searchParams.get("id");
   const text = searchParams.get("text");
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -47,7 +40,7 @@ const Competitions = () => {
           autoFocus
         />
 
-        {
+        {/* {
           <>
             <div className="flex gap-4">
               <SearchResultsList result={content} />
@@ -55,7 +48,7 @@ const Competitions = () => {
             </div>
             {pagination && <PaginationControls {...pagination} />}
           </>
-        }
+        } */}
       </Section>
     </Main>
   );
