@@ -24,3 +24,5 @@ export type Coach = {
   id: number;
   name: string;
 };
+
+export type NullableEntity = Competition | Athlete | Coach | null;

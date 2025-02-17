@@ -1,5 +1,3 @@
-import { AxiosRequestConfig } from "axios";
-
 export type Content<T> = { content: T | null };
 
 export type Pagination = {
@@ -20,8 +18,15 @@ export type ResponseState<T> = {
   loading: boolean;
 } & T;
 
+export type QueryParams = {
+  size?: ReturnType<typeof URLSearchParams.prototype.get>;
+  text?: ReturnType<typeof URLSearchParams.prototype.get>;
+  page?: ReturnType<typeof URLSearchParams.prototype.get>;
+  status?: ReturnType<typeof URLSearchParams.prototype.get>;
+};
+
 export type GetEntities<T> = (
-  params: AxiosRequestConfig["params"] & { size?: number }
+  params: QueryParams
 ) => Promise<ContentArray<T> & { pagination: Pagination }>;
 
 export type GetEntityById<T> = (id: string | number) => Promise<Content<T>>;

@@ -2,19 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams, useSearchParams } from "react-router";
 
 import { initSingleState as initial } from "@constants";
-import { Athlete, Coach, Competition, GetEntityById } from "@types";
+import { GetEntityById } from "@types";
 
-type NullableEntity = Competition | Athlete | Coach | null;
-
-export const useFetchEntityById = (
-  fetchFn: GetEntityById<Competition | Athlete | Coach>
-) => {
+export const useFetchEntityById = <T>(fetchFn: GetEntityById<T>) => {
   const [searchParams] = useSearchParams();
   const { id } = useParams();
 
   const entityId = searchParams.get("id") || id;
 
-  const [content, setContent] = useState<NullableEntity>(initial.content);
+  const [content, setContent] = useState<T | null>(initial.content);
   const [loading, setLoading] = useState(initial.loading);
   const [error, setError] = useState(initial.error);
 

@@ -1,10 +1,16 @@
-export type { Competition, Athlete, Coach } from "./entities.types.ts";
+export type {
+  Competition,
+  Athlete,
+  Coach,
+  NullableEntity,
+} from "./entities.types.ts";
 
 export type {
-  ContentArray,
   Content,
+  ContentArray,
   ResponseState,
   Pagination,
+  QueryParams,
   GetEntityById,
   GetEntities,
 } from "./axios.types.ts";

@@ -8,11 +8,12 @@ import {
   SearchStatus,
 } from "@components";
 import { useFetchEntities } from "@hooks";
+import { QueryParams } from "@types";
 
-type Props = ComponentPropsWithRef<"div">;
+type Props = ComponentPropsWithRef<"div"> & { params: QueryParams };
 
-const CoachesSearchResults = ({ className }: Props) => {
-  const { content, pagination, loading } = useFetchEntities(getCoaches);
+const CoachesSearchResults = ({ className, params }: Props) => {
+  const { content, pagination, loading } = useFetchEntities(getCoaches, params);
 
   const total = pagination.totalElements;
 

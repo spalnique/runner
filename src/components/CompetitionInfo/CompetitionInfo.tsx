@@ -4,13 +4,10 @@ import { getCompetitionById } from "@api";
 import { Button } from "@components";
 import { useQueryContext } from "@contexts";
 import { useFetchEntityById } from "@hooks";
-import { Competition, Content, ResponseState } from "@types";
 
 const CompetitionInfo = () => {
   const { setIdQuery } = useQueryContext();
-  const { content } = useFetchEntityById(getCompetitionById) as ResponseState<
-    Content<Competition>
-  >;
+  const { content } = useFetchEntityById(getCompetitionById);
 
   const handleClose: MouseEventHandler<HTMLButtonElement> = () => {
     setIdQuery();
