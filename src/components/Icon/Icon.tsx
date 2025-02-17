@@ -1,12 +1,12 @@
-import { SVGAttributes } from "react";
+import { ComponentPropsWithRef } from "react";
 
 import sprite from "../../assets/icons/sprite.svg";
 
-type IconProps = SVGAttributes<SVGSVGElement> & { id: string; size?: number };
+type Props = ComponentPropsWithRef<"svg"> & { id: string; size?: number };
 
-const Icon = ({ id, size = 24, ...props }: IconProps) => {
+const Icon = ({ id, size = 24, ...Props }: Props) => {
   return (
-    <svg width={props.width ?? size} height={props.height ?? size} {...props}>
+    <svg width={Props.width ?? size} height={Props.height ?? size} {...Props}>
       <use href={`${sprite}#${id}`}></use>
     </svg>
   );

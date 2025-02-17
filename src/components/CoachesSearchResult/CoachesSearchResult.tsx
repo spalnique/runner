@@ -9,9 +9,9 @@ import {
 } from "@components";
 import { useFetchEntities } from "@hooks";
 
-type CompetitionSearchResultsProps = ComponentPropsWithRef<"div">;
+type Props = ComponentPropsWithRef<"div">;
 
-const CoachesSearchResults = ({ className }: CompetitionSearchResultsProps) => {
+const CoachesSearchResults = ({ className }: Props) => {
   console.log("render list");
 
   const { content, pagination, loading } = useFetchEntities(getCoaches);

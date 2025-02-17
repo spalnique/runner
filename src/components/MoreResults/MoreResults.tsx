@@ -1,8 +1,8 @@
 import { Link, useSearchParams } from "react-router";
 
-type MoreResultsProps = { path: string };
+type Props = { path: string };
 
-const MoreResults = ({ path }: MoreResultsProps) => {
+const MoreResults = ({ path }: Props) => {
   const [searchParams] = useSearchParams();
 
   return (

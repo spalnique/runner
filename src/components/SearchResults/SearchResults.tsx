@@ -12,18 +12,11 @@ import {
   ResponseState,
 } from "@types";
 
-type SearchResultsProps = ResponseState<
-  ContentArray<Competition | Athlete | Coach>
-> & {
+type Props = ResponseState<ContentArray<Competition | Athlete | Coach>> & {
   title: string;
 };
 
-const SearchResults = ({
-  title,
-  content,
-  loading,
-  pagination,
-}: SearchResultsProps) => {
+const SearchResults = ({ title, content, loading, pagination }: Props) => {
   console.log("render list");
   return (
     <div className="divide-y-2 divide-blue-700">

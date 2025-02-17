@@ -1,16 +1,12 @@
 import { ComponentPropsWithRef } from "react";
 
-type SearchResultTitleProps = ComponentPropsWithRef<"span">;
+type Props = ComponentPropsWithRef<"span">;
 
-const SearchResultTitle = ({
-  children,
-  className,
-  ...props
-}: SearchResultTitleProps) => {
+const SearchResultTitle = ({ children, className, ...Props }: Props) => {
   return (
     <span
       className={`relative z-1 flex items-center justify-center border-b-2 border-b-blue-700 py-3 font-extralight capitalize ${className}`}
-      {...props}
+      {...Props}
     >
       {children}
     </span>

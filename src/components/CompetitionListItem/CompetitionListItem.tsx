@@ -2,9 +2,9 @@ import { Link, useSearchParams } from "react-router";
 
 import { Competition } from "@types";
 
-type CompetitionListItemProps = { competition: Competition };
+type Props = { competition: Competition };
 
-const CompetitionListItem = ({ competition }: CompetitionListItemProps) => {
+const CompetitionListItem = ({ competition }: Props) => {
   const [searchParams] = useSearchParams();
   const competitionId = competition.id.toString();
 

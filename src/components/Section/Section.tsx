@@ -1,8 +1,8 @@
 import { ComponentPropsWithoutRef } from "react";
 
-type SectionProps = ComponentPropsWithoutRef<"section">;
+type Props = ComponentPropsWithoutRef<"section">;
 
-const Section = ({ children }: SectionProps) => {
+const Section = ({ children }: Props) => {
   return <section className="container flex flex-col">{children}</section>;
 };
 export default Section;

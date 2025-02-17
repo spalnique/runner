@@ -1,8 +1,8 @@
 import { NavLink, useSearchParams } from "react-router";
 
-type NavigationItemProps = { name: string; route: string };
+type Props = { name: string; route: string };
 
-const NavigationItem = ({ name, route }: NavigationItemProps) => {
+const NavigationItem = ({ name, route }: Props) => {
   const [searchParams] = useSearchParams();
 
   const query = searchParams.toString();

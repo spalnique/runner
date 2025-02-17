@@ -2,17 +2,13 @@ import { HTMLAttributes } from "react";
 
 import { Athlete, Coach, Competition } from "@types";
 
-type SearchResultsListProps = HTMLAttributes<HTMLUListElement> & {
+type Props = HTMLAttributes<HTMLUListElement> & {
   result: (Athlete | Competition | Coach)[];
 };
 
-const SearchResultsList = ({
-  result,
-  className,
-  ...props
-}: SearchResultsListProps) => {
+const SearchResultsList = ({ result, className, ...Props }: Props) => {
   return (
-    <ul className={`flex h-50 flex-col ${className}`} {...props}>
+    <ul className={`flex h-50 flex-col ${className}`} {...Props}>
       {result.map((item) => (
         <li
           key={item.id}
