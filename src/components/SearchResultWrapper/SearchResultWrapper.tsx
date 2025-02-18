@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
+import { ComponentPropsWithRef } from "react";
 
-type Props = PropsWithChildren;
+type Props = ComponentPropsWithRef<"div">;
 
 const SearchResultWrapper = ({ children }: Props) => {
   return (

@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { initPaginatedState as initial } from "@constants";
-import { GetEntities, Pagination, QueryParams } from "@types";
+import { initPaginatedState as initial } from '@constants';
+import { Entity, GetEntities, Pagination, QueryParams } from '@types';
 
-export const useFetchEntities = <T>(
+export const useFetchEntities = <T extends Entity>(
   fetchFn: GetEntities<T>,
   params: QueryParams
 ) => {

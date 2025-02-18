@@ -11,7 +11,7 @@ const ShowMoreResults = ({ path }: Props) => {
   return (
     <Link
       to={`/${path}?${query}`}
-      className="flex w-full items-center justify-center bg-blue-700 py-3 font-extralight text-white transition-all hover:bg-blue-600 hover:font-normal hover:text-white"
+      className="flex h-12 w-full items-center justify-center bg-blue-700 font-extralight text-white transition-all hover:bg-blue-600 hover:font-normal hover:text-white"
     >
       See more results
     </Link>

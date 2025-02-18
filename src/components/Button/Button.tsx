@@ -7,7 +7,7 @@ type Props = ComponentPropsWithRef<"button"> & {
 const Button = ({ text, className, type = "button", ...props }: Props) => {
   return (
     <button
-      className={`min-w-24 bg-white px-3 py-1 text-slate-600 shadow-[0_0_3px_1px_rgba(0,0,0,0.1)] transition-all hover:scale-[1.05] hover:bg-slate-500 hover:text-white hover:shadow-[0_0_5px_2px_rgba(0,0,0,0.1)] ${className}`}
+      className={`flex items-center justify-center bg-blue-700 font-extralight text-white transition-all hover:bg-blue-600 hover:font-normal hover:text-white ${className}`}
       type={type}
       {...props}
     >

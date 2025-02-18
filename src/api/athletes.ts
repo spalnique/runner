@@ -4,9 +4,9 @@ import {
   GetEntities,
   GetEntityById,
   Pagination,
-} from "@types";
+} from '@types';
 
-import axiosInstance from "./axios";
+import axiosInstance from './axios';
 
 export const getAthletes: GetEntities<Athlete> = async ({
   text,
@@ -15,9 +15,14 @@ export const getAthletes: GetEntities<Athlete> = async ({
   const {
     data: { content, ...pagination },
   } = await axiosInstance.get<Content<Athlete[]> & Pagination>(
-    "/participants",
-    { params: { ...params, nameParts: text ?? "" } }
+    '/participants',
+    { params: { ...params, nameParts: text ?? '' } }
   );
+
+  content.forEach((item) => {
+    item.name = item.name.trim().replaceAll('&nbsp;', '');
+    item.surname = item.surname.trim().replaceAll('&nbsp;', '');
+  });
 
   return { content, pagination };
 };

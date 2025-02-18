@@ -1,4 +1,6 @@
-export type Content<T> = { content: T };
+import { Entity, NullableEntity } from './entities.types';
+
+export type Content<T extends Entity[] | NullableEntity> = { content: T };
 
 export type Pagination = {
   number: number;
@@ -9,16 +11,16 @@ export type Pagination = {
 };
 
 export type QueryParams = {
-  size?: number;
+  size: number;
   text?: ReturnType<typeof URLSearchParams.prototype.get>;
   page?: ReturnType<typeof URLSearchParams.prototype.get>;
   status?: ReturnType<typeof URLSearchParams.prototype.get>;
 };
 
-export type GetEntities<T> = (
+export type GetEntities<T extends Entity> = (
   params: QueryParams
 ) => Promise<Content<T[]> & { pagination: Pagination }>;
 
-export type GetEntityById<T> = (
+export type GetEntityById<T extends Entity> = (
   id: string | number
 ) => Promise<Content<T | null>>;

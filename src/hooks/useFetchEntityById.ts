@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
-import { useParams, useSearchParams } from "react-router";
+import { useEffect, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router';
 
-import { initSingleState as initial } from "@constants";
-import { GetEntityById } from "@types";
+import { initSingleState as initial } from '@constants';
+import { Entity, GetEntityById } from '@types';
 
-export const useFetchEntityById = <T>(fetchFn: GetEntityById<T>) => {
+export const useFetchEntityById = <T extends Entity>(
+  fetchFn: GetEntityById<T>
+) => {
   const [searchParams] = useSearchParams();
   const { id } = useParams();
 
-  const entityId = searchParams.get("id") || id;
+  const entityId = searchParams.get('id') || id;
 
   const [content, setContent] = useState<T | null>(initial.content);
   const [loading, setLoading] = useState(initial.loading);

@@ -1,44 +1,52 @@
-import { ComponentPropsWithRef } from "react";
+import { ComponentPropsWithRef } from 'react';
 
-import { getAthletes } from "@api";
+import { getAthletes } from '@api';
 import {
+  PaginationControls,
   SearchResultList,
   SearchResultTitle,
   SearchStatus,
   ShowMoreResults,
-} from "@components";
-import { Paths } from "@enums";
-import { useFetchEntities } from "@hooks";
-import { QueryParams } from "@types";
+} from '@components';
+import { Paths } from '@enums';
+import { useFetchEntities } from '@hooks';
+import { QueryParams } from '@types';
 
-type Props = ComponentPropsWithRef<"div"> & QueryParams;
+type Props = ComponentPropsWithRef<'div'> & {
+  params: QueryParams;
+  paginated?: boolean;
+};
 
-const AthletesSearchResults = ({ className, ...params }: Props) => {
-  const {
-    content,
-    pagination: { totalElements },
-    loading,
-  } = useFetchEntities(getAthletes, params);
+const AthletesSearchResults = ({
+  className = '',
+  params,
+  paginated = false,
+}: Props) => {
+  const { content, pagination, loading } = useFetchEntities(
+    getAthletes,
+    params
+  );
 
   let status: string;
 
   if (loading) {
-    status = "Searching...";
+    status = 'Searching...';
   } else {
-    status = !totalElements
-      ? "Nothing found"
-      : totalElements <= 5
-        ? "No more results available"
-        : "";
+    status = !pagination.totalElements
+      ? 'Nothing found'
+      : pagination.totalElements <= 5
+        ? 'No more results available'
+        : '';
   }
 
   return (
     <div className={`divide-y-2 divide-blue-700 ${className}`}>
-      <SearchResultTitle title="Athletes" />
+      {!paginated && <SearchResultTitle title="Athletes" />}
       <SearchResultList result={content} />
 
       {status && <SearchStatus status={status} />}
-      {!status && <ShowMoreResults path={Paths.competitions} />}
+      {!status && paginated && <PaginationControls {...pagination} />}
+      {!status && !paginated && <ShowMoreResults path={Paths.athletes} />}
     </div>
   );
 };

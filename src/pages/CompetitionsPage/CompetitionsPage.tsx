@@ -1,15 +1,25 @@
 import { ChangeEventHandler } from "react";
 
-import { Main, SearchInput, Section } from "@components";
+import {
+  CompetitionsSearchResult,
+  Main,
+  SearchInput,
+  SearchResultTitle,
+  SearchResultWrapper,
+  Section,
+} from "@components";
 import { useQueryContext } from "@contexts";
 import { useDebounceCall } from "@hooks";
+import { QueryParams } from "@types";
 
 const CompetitionsPage = () => {
-  const { textQuery, setTextQuery } = useQueryContext();
+  const { textQuery, pageQuery, setTextQuery } = useQueryContext();
 
-  // const { content, pagination } = useCompetitions();
-
-  // const id = searchParams.get("id");
+  const params: QueryParams = {
+    text: textQuery,
+    page: pageQuery,
+    size: 20,
+  };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     setTextQuery(target.value);
@@ -23,20 +33,23 @@ const CompetitionsPage = () => {
         <SearchInput
           key={textQuery}
           defaultValue={textQuery ?? ""}
-          placeholder="Search by competition name"
+          placeholder="Search by competition"
           onChange={debouncedHandleChange}
           autoFocus
         />
 
-        {/* {
-          <>
-            <div className="flex gap-4">
-              <SearchResultsList result={content} />
-              {id && <CompetitionInfo />}
-            </div>
-            {pagination && <PaginationControls {...pagination} />}
-          </>
-        } */}
+        {textQuery && (
+          <SearchResultWrapper>
+            <SearchResultTitle
+              title="Competitions search results"
+              className="bg-blue-700 font-medium text-white"
+            />
+            <CompetitionsSearchResult
+              params={params}
+              paginated={params.size > 5}
+            />
+          </SearchResultWrapper>
+        )}
       </Section>
     </Main>
   );

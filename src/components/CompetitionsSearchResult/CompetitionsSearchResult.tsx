@@ -2,6 +2,7 @@ import { ComponentPropsWithRef } from "react";
 
 import { getCompetitions } from "@api";
 import {
+  PaginationControls,
   SearchResultList,
   SearchResultTitle,
   SearchStatus,
@@ -11,34 +12,41 @@ import { Paths } from "@enums";
 import { useFetchEntities } from "@hooks";
 import { QueryParams } from "@types";
 
-type Props = ComponentPropsWithRef<"div"> & QueryParams;
+type Props = ComponentPropsWithRef<"div"> & {
+  params: QueryParams;
+  paginated?: boolean;
+};
 
-const CompetitionsSearchResult = ({ className, ...params }: Props) => {
-  const {
-    content,
-    pagination: { totalElements },
-    loading,
-  } = useFetchEntities(getCompetitions, params);
+const CompetitionsSearchResult = ({
+  className = "",
+  params,
+  paginated = false,
+}: Props) => {
+  const { content, pagination, loading } = useFetchEntities(
+    getCompetitions,
+    params
+  );
 
   let status: string;
 
   if (loading) {
     status = "Searching...";
   } else {
-    status = !totalElements
+    status = !pagination.totalElements
       ? "Nothing found"
-      : totalElements <= 5
+      : pagination.totalElements <= 5
         ? "No more results available"
         : "";
   }
 
   return (
     <div className={`divide-y-2 divide-blue-700 ${className}`}>
-      <SearchResultTitle title="Competitions" />
+      {!paginated && <SearchResultTitle title="Competitions" />}
       <SearchResultList result={content} />
 
       {status && <SearchStatus status={status} />}
-      {!status && <ShowMoreResults path={Paths.competitions} />}
+      {!status && paginated && <PaginationControls {...pagination} />}
+      {!status && !paginated && <ShowMoreResults path={Paths.competitions} />}
     </div>
   );
 };
