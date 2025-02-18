@@ -1,9 +1,9 @@
 import { Link } from "react-router";
 
 import { useQueryContext } from "@contexts";
-import { Routes } from "@enums";
+import { Paths } from "@enums";
 
-type Props = { path: Routes };
+type Props = { path: Paths };
 
 const ShowMoreResults = ({ path }: Props) => {
   const { query } = useQueryContext();

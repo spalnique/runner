@@ -1,2 +1,2 @@
 export { CompetitionStatus } from "./competitionStatus.enum";
-export { Routes } from "./routes.enum";
+export { Paths } from "./paths.enum";

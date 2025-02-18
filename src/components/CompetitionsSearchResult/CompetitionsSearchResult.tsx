@@ -7,7 +7,7 @@ import {
   SearchStatus,
   ShowMoreResults,
 } from "@components";
-import { Routes } from "@enums";
+import { Paths } from "@enums";
 import { useFetchEntities } from "@hooks";
 import { QueryParams } from "@types";
 
@@ -38,7 +38,7 @@ const CompetitionsSearchResult = ({ className, params }: Props) => {
       <SearchResultList result={content} />
 
       {status && <SearchStatus status={status} />}
-      {!status && <ShowMoreResults path={Routes.competitions} />}
+      {!status && <ShowMoreResults path={Paths.competitions} />}
     </div>
   );
 };
