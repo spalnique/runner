@@ -1,6 +1,6 @@
-import { ButtonHTMLAttributes } from "react";
+import { ComponentPropsWithRef } from "react";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
+type Props = ComponentPropsWithRef<"button"> & {
   text: string;
 };
 

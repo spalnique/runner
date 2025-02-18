@@ -1,11 +1,11 @@
 import { NavigationItem } from "@components";
-import { routes } from "@constants";
+import { Routes } from "@enums";
 
 const Navigation = () => {
   return (
     <nav className="h-full">
       <ul className="flex h-full items-stretch text-gray-500">
-        {Object.entries(routes).map(([name, route]) => (
+        {Object.entries(Routes).map(([name, route]) => (
           <li key={name}>
             <NavigationItem name={name} path={route} />
           </li>

@@ -1,8 +1,9 @@
-import { HTMLAttributes } from "react";
+import { ComponentPropsWithRef } from "react";
 
+import { SearchResultListItem } from "@components";
 import { Entity } from "@types";
 
-type Props<T extends Entity> = HTMLAttributes<HTMLUListElement> & {
+type Props<T extends Entity> = ComponentPropsWithRef<"ul"> & {
   result: T[];
 };
 
@@ -14,12 +15,7 @@ const SearchResultList = <T extends Entity>({
   return (
     <ul className={`flex h-50 flex-col ${className}`} {...props}>
       {result.map((item) => (
-        <li
-          key={item.id}
-          className="flex h-12 items-center px-6 transition-all hover:shadow-[0_0_3px_1px_rgba(0,0,0,0.05)]"
-        >
-          <span className="line-clamp-1">{`${item.name} ${"surname" in item ? item.surname : ""}`}</span>
-        </li>
+        <SearchResultListItem key={item.id} item={item} />
       ))}
     </ul>
   );

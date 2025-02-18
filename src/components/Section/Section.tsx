@@ -1,6 +1,6 @@
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithRef } from "react";
 
-type Props = ComponentPropsWithoutRef<"section">;
+type Props = ComponentPropsWithRef<"section">;
 
 const Section = ({ children }: Props) => {
   return <section className="container flex flex-col">{children}</section>;

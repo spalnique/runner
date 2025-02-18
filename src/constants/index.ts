@@ -18,10 +18,3 @@ export const initSingleState = {
   error: false,
   loading: false,
 };
-
-export const routes = {
-  home: "",
-  competitions: "/competitions",
-  athletes: "/athletes",
-  coaches: "/coaches",
-};

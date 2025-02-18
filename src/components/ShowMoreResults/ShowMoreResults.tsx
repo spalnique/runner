@@ -1,10 +1,11 @@
 import { Link } from "react-router";
 
 import { useQueryContext } from "@contexts";
+import { Routes } from "@enums";
 
-type Props = { path: string };
+type Props = { path: Routes };
 
-const MoreResults = ({ path }: Props) => {
+const ShowMoreResults = ({ path }: Props) => {
   const { query } = useQueryContext();
 
   return (
@@ -16,4 +17,4 @@ const MoreResults = ({ path }: Props) => {
     </Link>
   );
 };
-export default MoreResults;
+export default ShowMoreResults;

@@ -15,9 +15,10 @@ const QuickSearchResults = () => {
 
   return (
     <SearchResultWrapper>
-      <SearchResultTitle className="bg-blue-700 font-medium text-white">
-        Quick search results
-      </SearchResultTitle>
+      <SearchResultTitle
+        title="Quick search results"
+        className="bg-blue-700 font-medium text-white"
+      />
       <div className="flex divide-x-1 divide-gray-100">
         <CompetitionsSearchResult params={params} className="w-1/2" />
         <AthletesSearchResults params={params} className="w-1/4" />

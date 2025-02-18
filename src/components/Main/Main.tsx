@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
+import { ComponentPropsWithRef } from "react";
 
-type Props = PropsWithChildren;
+type Props = ComponentPropsWithRef<"main">;
 
 const Main = ({ children }: Props) => {
   return (
