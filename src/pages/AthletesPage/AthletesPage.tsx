@@ -14,18 +14,13 @@ import { QueryParams } from '@types';
 
 const AthletesPage = () => {
   const { textQuery, pageQuery, setTextQuery } = useQueryContext();
+  const debouncedSetTextQuery = useDebounceCall(setTextQuery);
 
-  const params: QueryParams = {
-    text: textQuery,
-    page: pageQuery,
-    size: 20,
-  };
+  const params: QueryParams = { text: textQuery, page: pageQuery, size: 20 };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setTextQuery(target.value);
+    debouncedSetTextQuery(target.value);
   };
-
-  const debouncedHandleChange = useDebounceCall(handleChange);
 
   return (
     <Main>
@@ -34,7 +29,7 @@ const AthletesPage = () => {
           key={textQuery}
           defaultValue={textQuery ?? ''}
           placeholder="Search by athlete"
-          onChange={debouncedHandleChange}
+          onChange={handleChange}
           autoFocus
         />
 

@@ -14,14 +14,13 @@ import { QueryParams } from '@types';
 
 const CoachesPage = () => {
   const { textQuery, setTextQuery } = useQueryContext();
+  const debouncedSetTextQuery = useDebounceCall(setTextQuery);
 
   const params: QueryParams = { text: textQuery, size: 20 };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setTextQuery(target.value);
+    debouncedSetTextQuery(target.value);
   };
-
-  const debouncedHandleChange = useDebounceCall(handleChange);
 
   return (
     <Main>
@@ -30,7 +29,7 @@ const CoachesPage = () => {
           key={textQuery}
           defaultValue={textQuery ?? ''}
           placeholder="Search by coach"
-          onChange={debouncedHandleChange}
+          onChange={handleChange}
           autoFocus
         />
 

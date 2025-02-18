@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from 'react';
 
 import {
   CompetitionsSearchResult,
@@ -7,34 +7,29 @@ import {
   SearchResultTitle,
   SearchResultWrapper,
   Section,
-} from "@components";
-import { useQueryContext } from "@contexts";
-import { useDebounceCall } from "@hooks";
-import { QueryParams } from "@types";
+} from '@components';
+import { useQueryContext } from '@contexts';
+import { useDebounceCall } from '@hooks';
+import { QueryParams } from '@types';
 
 const CompetitionsPage = () => {
   const { textQuery, pageQuery, setTextQuery } = useQueryContext();
+  const debouncedSetTextQuery = useDebounceCall(setTextQuery);
 
-  const params: QueryParams = {
-    text: textQuery,
-    page: pageQuery,
-    size: 20,
-  };
+  const params: QueryParams = { text: textQuery, page: pageQuery, size: 20 };
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
-    setTextQuery(target.value);
+    debouncedSetTextQuery(target.value);
   };
-
-  const debouncedHandleChange = useDebounceCall(handleChange);
 
   return (
     <Main>
       <Section>
         <SearchInput
           key={textQuery}
-          defaultValue={textQuery ?? ""}
+          defaultValue={textQuery ?? ''}
           placeholder="Search by competition"
-          onChange={debouncedHandleChange}
+          onChange={handleChange}
           autoFocus
         />
 

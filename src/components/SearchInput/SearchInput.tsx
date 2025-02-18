@@ -1,6 +1,6 @@
-import { InputHTMLAttributes } from "react";
+import { ComponentPropsWithRef } from 'react';
 
-type Props = InputHTMLAttributes<HTMLInputElement>;
+type Props = ComponentPropsWithRef<'input'>;
 
 const SearchInput = ({ className, ...props }: Props) => {
   return (
