@@ -11,9 +11,9 @@ import { Paths } from "@enums";
 import { useFetchEntities } from "@hooks";
 import { QueryParams } from "@types";
 
-type Props = ComponentPropsWithRef<"div"> & { params: QueryParams };
+type Props = ComponentPropsWithRef<"div"> & QueryParams;
 
-const AthletesSearchResults = ({ className, params }: Props) => {
+const AthletesSearchResults = ({ className, ...params }: Props) => {
   const {
     content,
     pagination: { totalElements },
