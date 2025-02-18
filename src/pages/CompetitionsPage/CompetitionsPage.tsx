@@ -4,7 +4,7 @@ import { Main, SearchInput, Section } from "@components";
 import { useQueryContext } from "@contexts";
 import { useDebounceCall } from "@hooks";
 
-const Competitions = () => {
+const CompetitionsPage = () => {
   const { textQuery, setTextQuery } = useQueryContext();
 
   // const { content, pagination } = useCompetitions();
@@ -41,4 +41,4 @@ const Competitions = () => {
     </Main>
   );
 };
-export default Competitions;
+export default CompetitionsPage;

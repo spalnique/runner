@@ -26,3 +26,4 @@ export type Coach = {
 };
 
 export type NullableEntity = Competition | Athlete | Coach | null;
+export type Entity = Competition | Athlete | Coach;

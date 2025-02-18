@@ -1,12 +1,16 @@
 import { HTMLAttributes } from "react";
 
-import { Athlete, Coach, Competition } from "@types";
+import { Entity } from "@types";
 
-type Props = HTMLAttributes<HTMLUListElement> & {
-  result: (Athlete | Competition | Coach)[];
+type Props<T extends Entity> = HTMLAttributes<HTMLUListElement> & {
+  result: T[];
 };
 
-const SearchResultsList = ({ result, className, ...props }: Props) => {
+const SearchResultList = <T extends Entity>({
+  result,
+  className,
+  ...props
+}: Props<T>) => {
   return (
     <ul className={`flex h-50 flex-col ${className}`} {...props}>
       {result.map((item) => (
@@ -20,4 +24,4 @@ const SearchResultsList = ({ result, className, ...props }: Props) => {
     </ul>
   );
 };
-export default SearchResultsList;
+export default SearchResultList;

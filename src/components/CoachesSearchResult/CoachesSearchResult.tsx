@@ -3,7 +3,7 @@ import { ComponentPropsWithRef } from "react";
 import { getCoaches } from "@api";
 import {
   MoreResults,
-  SearchResultsList,
+  SearchResultList,
   SearchResultTitle,
   SearchStatus,
 } from "@components";
@@ -20,7 +20,7 @@ const CoachesSearchResults = ({ className, params }: Props) => {
   return (
     <div className={`divide-y-2 divide-blue-700 ${className}`}>
       <SearchResultTitle>Competitions</SearchResultTitle>
-      <SearchResultsList result={content} />
+      <SearchResultList result={content} />
       {loading ? (
         <SearchStatus status="Searching..." />
       ) : (

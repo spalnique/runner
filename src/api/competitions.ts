@@ -1,6 +1,6 @@
 import {
   Competition,
-  ContentArray,
+  Content,
   GetEntities,
   GetEntityById,
   Pagination,
@@ -11,7 +11,7 @@ import axiosInstance from "./axios.ts";
 export const getCompetitions: GetEntities<Competition> = async (params) => {
   const {
     data: { content, ...pagination },
-  } = await axiosInstance.get<ContentArray<Competition> & Pagination>(
+  } = await axiosInstance.get<Content<Competition[]> & Pagination>(
     "/competitions",
     { params }
   );

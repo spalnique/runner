@@ -4,7 +4,7 @@ import { Main, QuickSearchResults, SearchInput, Section } from "@components";
 import { useQueryContext } from "@contexts";
 import { useDebounceCall } from "@hooks";
 
-const Homepage = () => {
+const HomePage = () => {
   const { textQuery, setTextQuery } = useQueryContext();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
@@ -30,4 +30,4 @@ const Homepage = () => {
     </Main>
   );
 };
-export default Homepage;
+export default HomePage;

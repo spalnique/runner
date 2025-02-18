@@ -2,13 +2,12 @@ export type {
   Competition,
   Athlete,
   Coach,
+  Entity,
   NullableEntity,
 } from "./entities.types.ts";
 
 export type {
   Content,
-  ContentArray,
-  ResponseState,
   Pagination,
   QueryParams,
   GetEntityById,

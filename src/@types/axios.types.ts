@@ -1,4 +1,4 @@
-export type Content<T> = { content: T | null };
+export type Content<T> = { content: T };
 
 export type Pagination = {
   number: number;
@@ -7,16 +7,6 @@ export type Pagination = {
   totalElements: number;
   totalPages: number;
 };
-
-export type ContentArray<T> = {
-  content: T[];
-};
-
-export type ResponseState<T> = {
-  pagination?: Pagination;
-  error: boolean;
-  loading: boolean;
-} & T;
 
 export type QueryParams = {
   size?: number;
@@ -27,6 +17,8 @@ export type QueryParams = {
 
 export type GetEntities<T> = (
   params: QueryParams
-) => Promise<ContentArray<T> & { pagination: Pagination }>;
+) => Promise<Content<T[]> & { pagination: Pagination }>;
 
-export type GetEntityById<T> = (id: string | number) => Promise<Content<T>>;
+export type GetEntityById<T> = (
+  id: string | number
+) => Promise<Content<T | null>>;

@@ -3,7 +3,7 @@ import { ComponentPropsWithRef } from "react";
 import { getCompetitions } from "@api";
 import {
   MoreResults,
-  SearchResultsList,
+  SearchResultList,
   SearchResultTitle,
   SearchStatus,
 } from "@components";
@@ -12,7 +12,7 @@ import { QueryParams } from "@types";
 
 type Props = ComponentPropsWithRef<"div"> & { params: QueryParams };
 
-const CompetitionsSearchResults = ({ className, params }: Props) => {
+const CompetitionsSearchResult = ({ className, params }: Props) => {
   const { content, pagination, loading } = useFetchEntities(
     getCompetitions,
     params
@@ -23,7 +23,7 @@ const CompetitionsSearchResults = ({ className, params }: Props) => {
   return (
     <div className={`divide-y-2 divide-blue-700 ${className}`}>
       <SearchResultTitle>Competitions</SearchResultTitle>
-      <SearchResultsList result={content} />
+      <SearchResultList result={content} />
       {loading ? (
         <SearchStatus status="Searching..." />
       ) : (
@@ -40,4 +40,4 @@ const CompetitionsSearchResults = ({ className, params }: Props) => {
     </div>
   );
 };
-export default CompetitionsSearchResults;
+export default CompetitionsSearchResult;
