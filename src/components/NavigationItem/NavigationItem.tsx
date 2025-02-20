@@ -7,9 +7,9 @@ import { Paths } from "@enums";
 type Props = ComponentPropsWithRef<"a"> & { name: string; path: Paths };
 
 const NavigationItem = ({ name, path, ...props }: Props) => {
-  const { textQuery } = useQueryContext();
+  const { text } = useQueryContext();
 
-  const to = textQuery && path ? `${path}?text=${textQuery}` : path;
+  const to = text && path ? `${path}?text=${text}` : path;
 
   return (
     <NavLink

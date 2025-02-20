@@ -6,11 +6,11 @@ import { Competition } from "@types";
 type Props = { competition: Competition };
 
 const CompetitionListItem = ({ competition }: Props) => {
-  const { query, idQuery } = useQueryContext();
+  const { query, id } = useQueryContext();
   const newQuery = new URLSearchParams(query);
 
   const competitionId = competition.id.toString();
-  const isActive = idQuery === competitionId;
+  const isActive = id === competitionId;
 
   newQuery.set("id", competitionId);
 

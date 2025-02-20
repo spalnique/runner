@@ -4,14 +4,14 @@ import {
   CompetitionsSearchResult,
   SearchResultTitle,
   SearchResultWrapper,
-} from "@components";
-import { useQueryContext } from "@contexts";
-import { QueryParams } from "@types";
+} from '@components';
+import { useQueryContext } from '@contexts';
+import { QueryParams } from '@types';
 
 const QuickSearchResults = () => {
-  const { textQuery } = useQueryContext();
+  const { text } = useQueryContext();
 
-  const params: QueryParams = { text: textQuery, size: 5 };
+  const params: QueryParams = { text, size: 5 };
 
   return (
     <SearchResultWrapper>

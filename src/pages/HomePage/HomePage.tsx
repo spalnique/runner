@@ -5,7 +5,7 @@ import { useQueryContext } from '@contexts';
 import { useDebounceCall } from '@hooks';
 
 const HomePage = () => {
-  const { textQuery, setTextQuery } = useQueryContext();
+  const { text, setTextQuery } = useQueryContext();
 
   const handleChange: ChangeEventHandler<HTMLInputElement> = ({ target }) => {
     target.value = target.value.trimStart();
@@ -19,13 +19,13 @@ const HomePage = () => {
     <Main>
       <Section>
         <SearchInput
-          key={textQuery}
-          defaultValue={textQuery ?? ''}
+          key={text}
+          defaultValue={text ?? ''}
           placeholder="Quick search by competition, athlete or coach"
           onChange={debouncedHandleChange}
           autoFocus
         />
-        {textQuery && <QuickSearchResults />}
+        {text && <QuickSearchResults />}
       </Section>
     </Main>
   );

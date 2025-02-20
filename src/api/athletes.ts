@@ -8,15 +8,12 @@ import {
 
 import axiosInstance from './axios';
 
-export const getAthletes: GetEntities<Athlete> = async ({
-  text,
-  ...params
-}) => {
+export const getAthletes: GetEntities<Athlete> = async (params) => {
   const {
     data: { content, ...pagination },
   } = await axiosInstance.get<Content<Athlete[]> & Pagination>(
     '/participants',
-    { params: { ...params, nameParts: text ?? '' } }
+    { params }
   );
 
   content.forEach((item) => {

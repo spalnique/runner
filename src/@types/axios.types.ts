@@ -1,3 +1,5 @@
+import { CompetitionStatus } from '@enums';
+
 import { Entity, NullableEntity } from './entities.types';
 
 export type Content<T extends Entity[] | NullableEntity> = { content: T };
@@ -12,9 +14,9 @@ export type Pagination = {
 
 export type QueryParams = {
   size: number;
-  text?: ReturnType<typeof URLSearchParams.prototype.get>;
-  page?: ReturnType<typeof URLSearchParams.prototype.get>;
-  status?: ReturnType<typeof URLSearchParams.prototype.get>;
+  text?: string | null;
+  page?: number;
+  status?: CompetitionStatus | null;
 };
 
 export type GetEntities<T extends Entity> = (

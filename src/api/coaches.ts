@@ -1,34 +1,20 @@
-import { Coach, GetEntities, GetEntityById } from "@types";
+import { Coach, Content, GetEntities, GetEntityById, Pagination } from '@types';
 
-import axiosInstance from "./axios";
+import axiosInstance from './axios';
 
-export const getCoaches: GetEntities<Coach> = async ({
-  text,
-  size = 10,
-  ...params
-}) => {
-  const { data } = await axiosInstance.get<Coach[]>(`/coach/name/${text}`, {
-    params: { ...params, size },
+export const getCoaches: GetEntities<Coach> = async (params) => {
+  const { data: {content, ...pagination} } = await axiosInstance.get<Content<Coach[]> & Pagination>(`/coaches`, {
+    params,
   });
-
-  const totalElements = data.length;
-  const content = data.length > size ? data.slice(0, size) : data;
-  const totalPages = Math.ceil(data.length / size);
 
   return {
     content,
-    pagination: {
-      totalElements,
-      totalPages,
-      first: true,
-      last: true,
-      number: 0,
-    },
+    pagination
   };
 };
 
 export const getCoachById: GetEntityById<Coach> = async (id) => {
-  const { data } = await axiosInstance.get<Coach>(`/coach/${id}`);
+  const { data } = await axiosInstance.get<Coach>(`/coaches/${id}`);
 
   return { content: data };
 };
